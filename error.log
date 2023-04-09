@@ -1,0 +1,23 @@
+{"level":"error","message":"Route not found: / - / - POST - ::1","service":"doug","timestamp":"2023-04-08T22:33:29.842Z"}
+{"level":"error","message":"Route not found: /webhook/home - /webhook/home - POST - ::1","service":"doug","timestamp":"2023-04-08T22:38:13.327Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:39:31.513Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:42:50.314Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:44:29.343Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:48:14.024Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:49:42.715Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:53:43.418Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:56:20.413Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:56:38.407Z"}
+{"level":"error","message":"Error handling message: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:57:23.923Z"}
+{"level":"error","message":"Doug has an Error: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T22:58:46.529Z"}
+{"level":"error","message":"Doug has an Error: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T23:00:22.302Z"}
+{"level":"error","message":"Doug has an Error: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T23:01:25.456Z"}
+{"level":"error","message":"Doug has an Error: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T23:04:40.823Z"}
+{"level":"error","message":"Doug has an Error: Cannot read properties of undefined (reading 'displayName')","service":"doug","timestamp":"2023-04-08T23:10:49.523Z"}
+{"level":"error","message":"Doug has an Error: Cannot read properties of undefined (reading 'user')","service":"doug","timestamp":"2023-04-08T23:31:24.838Z"}
+{"level":"error","message":"Route not found: / - / - POST - ::1","service":"doug","timestamp":"2023-04-08T23:31:49.942Z"}
+{"level":"error","message":"Route not found: / - / - POST - ::1","service":"doug","timestamp":"2023-04-08T23:34:15.519Z"}
+{"level":"error","message":"Route not found: / - / - POST - ::1","service":"doug","timestamp":"2023-04-09T02:39:16.862Z"}
+{"level":"error","message":"Route not found: /webhook - /webhook - GET - ::1","service":"doug","timestamp":"2023-04-09T02:54:35.873Z"}
+{"level":"error","message":"Error sending message to space Space Name: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.","service":"doug","timestamp":"2023-04-09T03:00:03.807Z"}
+{"level":"error","message":"Error sending message to space Space Name: Could not load the default credentials. Browse to https://cloud.google.com/docs/authentication/getting-started for more information.","service":"doug","timestamp":"2023-04-09T03:07:27.493Z"}

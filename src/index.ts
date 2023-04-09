@@ -1,8 +1,9 @@
 import {GoogleAuth} from 'google-auth-library';
-import express from 'express';
+import express = require('express');
 import { logger } from './config/logger';
 import { messageRoutes } from './routes/messageRoutes';
 import { chat } from '@googleapis/chat';
+import { handleMessage } from './controllers/messageController';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -11,16 +12,19 @@ const port = process.env.PORT || 8080;
 const auth = new GoogleAuth({
   scopes: ['https://www.googleapis.com/auth/chat.bot'],
 });
-const gChat = chat({
-  version: 'v1',
-  auth,
-});
+// const gChat = chat({
+//   version: 'v1',
+//   auth,
+// });
 
 // Use middleware to parse JSON request body
 app.use(express.json());
 
 // Use messageRoutes for handling incoming chat events
 app.use('/webhook', messageRoutes);
+app.get('/', (req, res) => {
+  res.send('Welcome to the home of Doug');
+});
 
 // Handle unrecognized routes with a 404 error
 app.use((req, res, next) => {
@@ -40,8 +44,8 @@ app.use((error: Error, req: express.Request, res: express.Response, next: expres
 
 // Start the server and log a message
 app.listen(port, () => {
-  logger.info(`Server listening on port ${port}`);
-  gChat.spaces.list().then((response) => {
-    logger.info(`Connected to Google Chat API as ${response.data.nextPageToken}`);
-  });
+  logger.info(`Doug is listening on port ${port}`);
+  // gChat.spaces.list().then((response) => {
+  //   logger.info(`Connected to Google Chat API as ${response.data.nextPageToken}`);
+  // });
 });

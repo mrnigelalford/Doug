@@ -11,7 +11,7 @@ messageRoutes.post('/', async (req, res) => {
     await handleMessage(message);
     res.sendStatus(200);
   } catch (error) {
-    logger.error(`Error handling message: ${error.message}`);
+    logger.error(`Doug has an Error: ${error.message}`);
     res.sendStatus(500);
   }
 });
