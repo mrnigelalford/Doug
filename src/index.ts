@@ -2,8 +2,6 @@ import {GoogleAuth} from 'google-auth-library';
 import express = require('express');
 import { logger } from './config/logger';
 import { messageRoutes } from './routes/messageRoutes';
-import { chat } from '@googleapis/chat';
-import { handleMessage } from './controllers/messageController';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -51,4 +49,3 @@ app.listen(port, () => {
 });
 
 module.exports = { app };
-
