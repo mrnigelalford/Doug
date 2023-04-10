@@ -1,17 +1,31 @@
+# Copyright 2021 Toca Football
+
+# [START cloudbuild_npm_node]
 steps:
-  - name: node:14.16.0
-    entrypoint: npm
-    args: ['install']
-  - name: node:14.16.0
-    entrypoint: npm
-    args: ['run', 'build']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        gcloud auth activate-service-account --key-file=$$GOOGLE_APPLICATION_CREDENTIALS
-        gcloud config set project $PROJECT_ID
-        gcloud run deploy doug --image gcr.io/$PROJECT_ID/doug --platform managed --region us-central1 --allow-unauthenticated
-images:
-  - 'gcr.io/$PROJECT_ID/doug'
+# 1. Install dependencies
+- name: node
+  entrypoint: npm
+  args: ['install']
+
+# Run tests
+# - name: node
+#  entrypoint: npm
+#  args: ['test']
+
+# 2. Build the project
+- name: node
+  entrypoint: npm
+  args: ['run', 'build']
+
+# 3. deploy DOUG function
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - doug
+  - --region=us-east1
+  - --source=.
+  - --trigger-http
+  - --runtime=nodejs18
+# [END cloudbuild_npm_node]
