@@ -49,3 +49,7 @@ app.listen(port, () => {
   //   logger.info(`Connected to Google Chat API as ${response.data.nextPageToken}`);
   // });
 });
+
+module.exports = { app };
+
+// export default app;
