@@ -6,6 +6,7 @@ const messageRoutes = Router();
 
 // Handle incoming chat events
 messageRoutes.post('/', async (req, res) => {
+  logger.log('info', `Doug messageRouter it: ${req.body}`);
   try {
     const message = req.body;
     await handleMessage(message);

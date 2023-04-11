@@ -16,7 +16,10 @@ app.use(express.json());
 
 // Use messageRoutes for handling incoming chat events
 app.use('/webhook', messageRoutes);
-app.use('/', (req, res) => res.send('Welcome to the home of Doug'));
+app.use('/', (req, res) => {
+  logger.log('info', `Doug messageRouter it: ${req.body}`);
+  res.send('Welcome to the home of Doug')
+});
 
 // Handle unrecognized routes with a 404 error
 app.use((req, res, next) => {
