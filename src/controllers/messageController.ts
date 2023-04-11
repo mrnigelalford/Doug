@@ -18,6 +18,8 @@ const handleMessage = async (message: Message) => {
     return;
   }
 
+  logger.log('info', `Doug message handling: ${message.message}`);
+  logger.log('info', `Doug message : ${JSON.stringify(message)}`);
   // Handle commands
   if (message.message.text?.startsWith('@Doug')) {
     const command = message.message.text.split(' ')[1];
