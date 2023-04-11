@@ -4,7 +4,7 @@ import { logger } from './config/logger';
 import { messageRoutes } from './routes/messageRoutes';
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8081;
 
 // const gChat = chat({
 //   version: 'v1',
@@ -37,7 +37,7 @@ app.use((error: Error, req: express.Request, res: express.Response, next: expres
 });
 
 // Start the server and log a message
-app.listen(port, () => {
+app.listen(3000, () => {
   logger.info(`Doug is listening on port ${port}`);
   // gChat.spaces.list().then((response) => {
   //   logger.info(`Connected to Google Chat API as ${response.data.nextPageToken}`);
