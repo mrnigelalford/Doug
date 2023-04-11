@@ -17,7 +17,7 @@ app.use(express.json());
 // Use messageRoutes for handling incoming chat events
 app.use('/webhook', messageRoutes);
 app.use('/', (req, res) => {
-  logger.log('info', `Doug messageRouter it: ${req.body}`);
+  logger.log('info', `Doug messageRouter top level: ${JSON.stringify(req.body)}`);
   res.send('Welcome to the home of Doug')
 });
 
