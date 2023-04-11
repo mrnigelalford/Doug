@@ -7,8 +7,8 @@ const messageRoutes = Router();
 // Handle incoming chat events
 messageRoutes.post('/', async (req, res) => {
   try {
-    const message = req.body;
-    await handleMessage(message);
+    const body = req.body;
+    await handleMessage(body);
     res.sendStatus(200);
   } catch (error) {
     logger.error(`Doug has an Error: ${error.message}`);
