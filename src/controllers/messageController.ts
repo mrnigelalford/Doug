@@ -12,6 +12,21 @@ const gChat = chat({
   auth,
 });
 
+
+const sendMessage = async (message: any, spaceName: string) => {
+  try {
+    await gChat.spaces.messages.create({
+      parent: spaceName,
+      requestBody: {
+        text: message.text,
+      },
+    });
+    logger.info(`Sent message to space ${spaceName}: ${message.text}`);
+  } catch (error) {
+    logger.error(`Error sending message to space ${spaceName}: ${error.message}`);
+  }
+};
+
 const handleMessage = async (message: Message) => {
   // Ignore messages from the bot itself
   if (message.user.displayName === 'Doug') {
@@ -59,20 +74,6 @@ const sendUnknownCommandMessage = async (spaceId: string, displayName: string) =
     text: `Sorry ${displayName}, I don't understand that command. Try "@Doug help" for a list of available commands.`,
   };
   await sendMessage(message, spaceId);
-};
-
-const sendMessage = async (message: any, spaceId: string) => {
-  try {
-    await gChat.spaces.messages.create({
-      parent: `spaces/${spaceId}`,
-      requestBody: {
-        text: message.text,
-      },
-    });
-    logger.info(`Sent message to space ${spaceId}: ${message.text}`);
-  } catch (error) {
-    logger.error(`Error sending message to space ${spaceId}: ${error.message}`);
-  }
 };
 
 export { handleMessage };
