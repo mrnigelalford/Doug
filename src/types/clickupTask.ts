@@ -14,7 +14,7 @@ export interface Task {
   creator: Creator;
   assignees: string[];
   checklists: string[];
-  tags: { name: string; tag_fg: string; tag_bg: string; creator: number }[];
+  tags: Tag[];
   parent: string;
   priority: string;
   due_date: string;
@@ -26,6 +26,13 @@ export interface Task {
   folder: Folder;
   space: Folder;
   url: string;
+}
+
+interface Tag {
+  name: string;
+  tag_fg: string;
+  tag_bg: string;
+  creator: number;
 }
 
 export interface Creator {

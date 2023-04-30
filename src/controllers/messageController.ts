@@ -33,16 +33,16 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
     return;
   }
   const data: Task = await resp.json();
-  console.log('task: ', JSON.stringify(data.tags));
+  console.log('task: ', data);
 
   if (data.tags.filter((tag) => tag.name === "automation-new-center").length) {
     console.log(
       `🚀 Correct tag ${data.name} has been flagged and we are ready to create a new center`
     );
-    await commentOnTask(data, "36109037");
+    await commentOnTask(data.id, "36109037");
   } else {
     console.log(
-      `💤 incorrect tag ${data.name} has been see. We are not ready to create a new center`
+      `💤 incorrect tag ${data.name} has been seen. We are not ready to create a new center`
     );
   }
 };
@@ -53,7 +53,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
  * @param {string} team_id - The ID of the team that the task belongs to.
  * @returns {Promise<void>} - A Promise that resolves with no value when the comment is posted.
  */
-const commentOnTask = async (task: Task, team_id: string) => {
+const commentOnTask = async (task_id: string, team_id: string) => {
   const query = new URLSearchParams({
     custom_task_ids: "true",
     team_id,
