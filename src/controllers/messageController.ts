@@ -33,16 +33,16 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
     return;
   }
   const data: Task = await resp.json();
-  console.log(data.tags);
+  console.log('task: ', JSON.stringify(data.tags));
 
-  if (data.tags.includes("automation-new-center")) {
+  if (data.tags.filter(tag => tag.includes("automation-new-center")).length) {
     console.log(
-      `Task ${data.name} has been flagged as 🔴 and is ready to create a new center`
+      `Task ${data.name} has been flagged and is ready to create a new center`
     );
     await commentOnTask(data, "36109037");
   } else {
     console.log(
-      `Task ${data.name} has been flagged as 🔴 and is ready to create a new center`
+      `Task ${data.name} has been flagged as 🔴 and is not ready to create a new center`
     );
   }
 };
