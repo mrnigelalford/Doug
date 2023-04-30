@@ -1,79 +1,82 @@
-import { GoogleAuth } from 'google-auth-library';
-import { chat } from '@googleapis/chat';
-import { logger } from '../config/logger';
-import { Message } from '../types/message';
+import { TagEvent } from "../types/webhook";
+import { Task } from "../types/clickupTask";
+import * as dotenv from 'dotenv'
 
-// Initialize Google Chat API client
-const auth = new GoogleAuth({
-  scopes: ['https://www.googleapis.com/auth/chat.bot'],
-});
-const gChat = chat({
-  version: 'v1',
-  auth,
-});
+dotenv.config()
 
+/**
+ * Handles incoming clickup task create/update.
+ * @param {TagEvent} message - The incoming message to handle.
+ * @returns {Promise<void>} - A Promise that resolves when the message is handled.
+ */
 
-const sendMessage = async (message: any, spaceName: string) => {
+const handleMessage = async (message: TagEvent): Promise<void> => {
+  const query = new URLSearchParams({
+    custom_task_ids: "true",
+    team_id: process.env.CLICKUP_TOCA_TEAM_ID,
+    include_subtasks: "true",
+  }).toString();
+
+  let resp: Response;
   try {
-    await gChat.spaces.messages.create({
-      parent: spaceName,
-      requestBody: {
-        text: message.text,
-      },
-    });
-    logger.info(`Sent message to space ${spaceName}: ${message.text}`);
+    resp = await fetch(
+      `https://api.clickup.com/api/v2/task/${message.task_id}?${query}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: process.env.CLICKUP_API_KEY,
+        },
+      }
+    );
   } catch (error) {
-    logger.error(`Error sending message to space ${spaceName}: ${error.message}`);
-  }
-};
-
-const handleMessage = async (message: Message) => {
-  // Ignore messages from the bot itself
-  if (message.user.displayName === 'Doug') {
+    console.log(error);
     return;
   }
+  const data: Task = await resp.json();
+  console.log(data.tags);
 
-  logger.log('info', `Doug message handling: ${message.message}`);
-  logger.log('info', `Doug message : ${JSON.stringify(message)}`);
-  // Handle commands
-  if (message.message.text?.startsWith('@Doug')) {
-    const command = message.message.text.split(' ')[1];
-
-    switch (command) {
-      case 'help':
-        await sendHelpMessage(message.space.name, message.user.displayName);
-        break;
-      case 'ping':
-        await sendPingMessage(message.space.name, message.user.displayName);
-        break;
-      default:
-        await sendUnknownCommandMessage(message.space.name, message.user.displayName);
-        break;
-    }
+  if (data.tags.includes("automation-new-center")) {
+    console.log(
+      `Task ${data.name} has been flagged as 🔴 and is ready to create a new center`
+    );
+    await commentOnTask(data, "36109037");
+  } else {
+    console.log(
+      `Task ${data.name} has been flagged as 🔴 and is ready to create a new center`
+    );
   }
 };
 
-const sendHelpMessage = async (spaceId: string, displayName: string) => {
-  const message = {
-    text: `Hello ${displayName}! Here are the available commands:
-- @Doug help: Show this message
-- @Doug ping: Send a "pong" message`,
-  };
-  await sendMessage(message, spaceId);
-};
+/**
+ * Comment on a ClickUp task.
+ * @param {Task} task - The ClickUp task to comment on.
+ * @param {string} team_id - The ID of the team that the task belongs to.
+ * @returns {Promise<void>} - A Promise that resolves with no value when the comment is posted.
+ */
+const commentOnTask = async (task: Task, team_id: string) => {
+  const query = new URLSearchParams({
+    custom_task_ids: "true",
+    team_id,
+  }).toString();
 
-const sendPingMessage = async (spaceId: string, displayName: string) => {
-  const message = {
-    text: `Pong! This is ${displayName}.`,
-  };
-  await sendMessage(message, spaceId);
-};
+  const resp = await fetch(
+    `https://api.clickup.com/api/v2/task/${task.id}/comment?${query}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: process.env.CLICKUP_API_KEY,
+      },
+      body: JSON.stringify({
+        comment_text:
+          "Great news! We are starting the process of creating a new center for this task. We will keep you updated on the progress.",
+        assignee: process.env.CLICKUP_NIGEL, // Nigel Alford ID
+        notify_all: true,
+      }),
+    }
+  );
 
-const sendUnknownCommandMessage = async (spaceId: string, displayName: string) => {
-  const message = {
-    text: `Sorry ${displayName}, I don't understand that command. Try "@Doug help" for a list of available commands.`,
-  };
-  await sendMessage(message, spaceId);
+  console.log(await resp.json());
 };
 
 export { handleMessage };

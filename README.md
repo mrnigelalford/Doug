@@ -6,10 +6,15 @@ Doug is an internal chat bot for Toca, a soccer company. Doug can help users wit
 
 - [Doug Chat Bot](#doug-chat-bot)
   - [Table of Contents](#table-of-contents)
+  - [Public Url](#public-url)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Contributing](#contributing)
   - [License](#license)
+
+## Public Url
+To access this endpoint for staging using this URL:
+`https://us-east1-player-portal-staging.cloudfunctions.net/doug `
 
 ## Installation
 
