@@ -37,12 +37,12 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
 
   if (data.tags.filter((tag) => tag.name === "automation-new-center").length) {
     console.log(
-      `🚀 Correct tag ${data.name} has been flagged and we are ready to create a new center`
+      `🚀 Correct tag has been on task: ${data.name}. Ready to create a new center!`
     );
     await commentOnTask(data.id, "36109037");
   } else {
     console.log(
-      `💤 incorrect tag ${data.name} has been seen. We are not ready to create a new center`
+      `💤 incorrect tag has been seen. We are not ready to create a new center`
     );
   }
 };
@@ -60,7 +60,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
   }).toString();
 
   const resp = await fetch(
-    `https://api.clickup.com/api/v2/task/${task.id}/comment?${query}`,
+    `https://api.clickup.com/api/v2/task/${task_id}/comment?${query}`,
     {
       method: "PUT",
       headers: {
@@ -69,7 +69,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       },
       body: JSON.stringify({
         comment_text:
-          "Great news! We are starting the process of creating a new center for this task. We will keep you updated on the progress.",
+          "Great news! We will create a new center. Progess will be commented here.",
         assignee: process.env.CLICKUP_NIGEL, // Nigel Alford ID
         notify_all: true,
       }),
