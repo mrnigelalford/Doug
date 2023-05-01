@@ -1,11 +1,10 @@
 import { Center } from '../types/webflow';
+import { getCenterPrograms } from './template_centerPrograms';
+import { getEvent } from './getEvent';
+import { getCarousel } from './getCarousel';
+import { getCenter } from './getCenter';
 
 require('dotenv').config();
-const axios = require('axios');
-const { getCenterPrograms } = require('./template_centerPrograms');
-const { getEvent } = require('./getEvent');
-const { getCarousel } = require('./getCarousel');
-const { getCenter } = require('./getCenter');
 
 // TO USE THIS SCRIPT:
 // 1. Set the centerName, address, centerID, and hubspotFormID variables below.
@@ -15,39 +14,35 @@ const { getCenter } = require('./getCenter');
 const centerCollectionId = '64492d7ee2522e3a782b51be';
 
 /**
- * Configuration object for axios requests.
- * @constant
- * @property headers - Request headers.
- * @property headers.accept - Requested response format.
- * @property headers.content-type - Request payload format.
- * @property headers.authorization - Webflow API key.
- */
-const axiosConfig = {
-  headers: {
-    accept: 'application/json',
-    'content-type': 'application/json',
-    authorization: process.env.WEBFLOW_API_KEY,
-  },
-};
-
-/**
  * Sends a POST request to the Webflow API to create an item in a collection.
  * @param collectionId - ID of the target collection.
  * @param fields - Object containing field names and values.
  * @returns Promise that resolves with the server response or rejects with an error.
  */
-const setItem = async (collectionId: String, fields: any) => {
+const setItem = async (collectionId: string, fields: any) => {
   console.info('setting with webflow api key: ', process.env.WEBFLOW_API_KEY);
+  const url = `https://api.webflow.com/collections/${collectionId}/items`;
+  const headers = {
+    accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${process.env.WEBFLOW_API_KEY}`,
+  };
+
   try {
-    return axios.post(
-      `https://api.webflow.com/collections/${collectionId}/items`,
-      {
-        fields,
-      },
-      axiosConfig,
-    );
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ fields }),
+    });
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error(
+        `Error setting item: ${response.status} ${response.statusText}`,
+      );
+    }
   } catch (error) {
-    console.error('error setting item: ', JSON.stringify(error.response.data));
+    console.error('Error setting item: ', error.message);
   }
 };
 
