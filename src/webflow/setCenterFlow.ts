@@ -52,9 +52,10 @@ const setItem = async (collectionId: string, fields: any) => {
  * @param address - Address of the center to create.
  * @returns Promise that resolves with the server response or rejects with an error.
  */
-const setCenter = async (centerName: String, address: String) => {
+const setCenter = async (centerName: string, address: string) => {
   const collectionId = centerCollectionId;
   const fields = getCenter(centerName, address);
+  console.info('setting center');
   return setItem(collectionId, fields);
 };
 
@@ -66,9 +67,9 @@ const setCenter = async (centerName: String, address: String) => {
  * @returns Promise that resolves with the server response or rejects with an error.
  */
 const setEvent = async (
-  centerName: String,
-  hubspotFormID: String,
-  centerID: String,
+  centerName: string,
+  hubspotFormID: string,
+  centerID: string,
 ) => {
   try {
     const collectionId = '64492d7ee2522e284a2b51cd';
@@ -84,7 +85,7 @@ const setEvent = async (
  * @param  centerName - Name of the center associated with the carousel.
  * @returns Promise that resolves with the server response or rejects with an error.
  */
-const setCenterCarousel = async (centerName: String) => {
+const setCenterCarousel = async (centerName: string) => {
   try {
     const collectionId = '64492d7ee2522e32452b51c3';
     const fields = getCarousel(centerName);
@@ -99,7 +100,7 @@ const setCenterCarousel = async (centerName: String) => {
  * @param  centerName - Name of the center associated with the programs.
  * @returns Promise that resolves with an array of server responses or rejects with an error.
  */
-const setCenterPrograms = async (centerName: String) => {
+const setCenterPrograms = async (centerName: string) => {
   const collectionId = '64492d7ee2522e4b272b51c9';
   const programs = getCenterPrograms(centerName);
   const promises = programs.map((program: any, i: number) => {
@@ -128,17 +129,17 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 */
 async function main(center: Center): Promise<void> {
   console.debug('center input: ', JSON.stringify(center));
-  const centerResponse = await setCenter(center.name, center.address).catch(
-    errorHandler,
-  );
-  console.info('center response: ', JSON.stringify(await centerResponse));
-  const centerID = centerResponse.data._id;
-  await setCenterPrograms(center.name).catch(errorHandler);
-  await setEvent(center.name, center.hubspotFormID, centerID).catch(
-    errorHandler,
-  );
-  await setCenterCarousel(center.name).catch(errorHandler);
-  console.info(`all done! ${center.name} is ready to go!`);
+  try {
+    const centerResponse = await setCenter(center.name, center.address);
+    console.info('center response: ', JSON.stringify(centerResponse));
+    const centerID = centerResponse.data._id;
+    await setCenterPrograms(center.name);
+    await setEvent(center.name, center.hubspotFormID, centerID);
+    await setCenterCarousel(center.name);
+    console.info(`all done! ${center.name} is ready to go!`);
+  } catch (error) {
+    errorHandler(error);
+  }
 }
 
 export default main;
