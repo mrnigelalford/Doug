@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx tsc src/index.ts",
     "build": "npx tsc",
-    "local-function": "npx functions-framework --target=doug --signature-type=event"
+    "local-function": "npx functions-framework --target=doug --signature-type=http"
   },
   "keywords": [
     "chat",

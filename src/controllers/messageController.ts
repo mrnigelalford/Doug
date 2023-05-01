@@ -1,7 +1,7 @@
 import { TagEvent } from "../types/webhook";
 import { Task } from "../types/clickupTask";
 import * as dotenv from "dotenv";
-import { main } from "../webflow/setCenterFlow";
+import main  from "../webflow/setCenterFlow";
 import { Center } from "../types/webflow";
 
 const inputs: Center = {
