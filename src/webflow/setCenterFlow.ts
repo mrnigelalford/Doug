@@ -1,11 +1,11 @@
-import { Center } from "../types/webflow";
+import { Center } from '../types/webflow';
 
-require("dotenv").config();
-const axios = require("axios");
-const { getCenterPrograms } = require("./template_centerPrograms");
-const { getEvent } = require("./getEvent");
-const { getCarousel } = require("./getCarousel");
-const { getCenter } = require("./getCenter");
+require('dotenv').config();
+const axios = require('axios');
+const { getCenterPrograms } = require('./template_centerPrograms');
+const { getEvent } = require('./getEvent');
+const { getCarousel } = require('./getCarousel');
+const { getCenter } = require('./getCenter');
 
 // TO USE THIS SCRIPT:
 // 1. Set the centerName, address, centerID, and hubspotFormID variables below.
@@ -13,11 +13,11 @@ const { getCenter } = require("./getCenter");
 // 3. If the script fails, check the console output for error messages.
 
 const inputs = {
-  address: "3601 W. 145th St. Burnsville, MN",
-  centerName: "Burnsville",
-  centerID: "001", // get this from the center slug
-  hubspotFormID: "a0f0b0c0-d0e0-0000-0000-000000000000", // get this from the hubspot form
-}
+  address: '3601 W. 145th St. Burnsville, MN',
+  centerName: 'Burnsville',
+  centerID: '001', // get this from the center slug
+  hubspotFormID: 'a0f0b0c0-d0e0-0000-0000-000000000000', // get this from the hubspot form
+};
 
 /**
  * Configuration object for axios requests.
@@ -29,8 +29,8 @@ const inputs = {
  */
 const axiosConfig = {
   headers: {
-    accept: "application/json",
-    "content-type": "application/json",
+    accept: 'application/json',
+    'content-type': 'application/json',
     authorization: process.env.WEBFLOW_API_KEY,
   },
 };
@@ -47,7 +47,7 @@ const setItem = (collectionId: String, fields: any) => {
     {
       fields,
     },
-    axiosConfig
+    axiosConfig,
   );
 };
 
@@ -58,7 +58,7 @@ const setItem = (collectionId: String, fields: any) => {
  * @returns {Promise} Promise that resolves with the server response or rejects with an error.
  */
 const setCenter = (centerName: String, address: String) => {
-  const collectionId = "64492d7ee2522e3a782b51be";
+  const collectionId = '64492d7ee2522e3a782b51be';
   const fields = getCenter(centerName, address);
   return setItem(collectionId, fields);
 };
@@ -70,9 +70,13 @@ const setCenter = (centerName: String, address: String) => {
  * @param {string|null} centerID - ID of the center associated with the event, or null if not available.
  * @returns {Promise} Promise that resolves with the server response or rejects with an error.
  */
-const setEvent = (centerName: String, hubspotFormID: String, centerID: String) => {
-  const collectionId = "64492d7ee2522e284a2b51cd";
-  const fields = getEvent(centerName, hubspotFormID, centerID || "");
+const setEvent = (
+  centerName: String,
+  hubspotFormID: String,
+  centerID: String,
+) => {
+  const collectionId = '64492d7ee2522e284a2b51cd';
+  const fields = getEvent(centerName, hubspotFormID, centerID || '');
   return setItem(collectionId, fields);
 };
 
@@ -82,7 +86,7 @@ const setEvent = (centerName: String, hubspotFormID: String, centerID: String) =
  * @returns {Promise} Promise that resolves with the server response or rejects with an error.
  */
 const setCenterCarousel = (centerName: String) => {
-  const collectionId = "64492d7ee2522e32452b51c3";
+  const collectionId = '64492d7ee2522e32452b51c3';
   const fields = getCarousel(centerName);
   return setItem(collectionId, fields);
 };
@@ -93,19 +97,25 @@ const setCenterCarousel = (centerName: String) => {
  * @returns {Promise} Promise that resolves with an array of server responses or rejects with an error.
  */
 const setCenterPrograms = async (centerName: String) => {
-  const collectionId = "64492d7ee2522e4b272b51c9";
+  const collectionId = '64492d7ee2522e4b272b51c9';
   const programs = getCenterPrograms(centerName);
   const promises = programs.map((program: any, i: number) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         setItem(collectionId, program)
-          .then((response: {data: any}) => resolve(response.data))
-          .catch((error:{response:{data:any}}) => reject(error.response.data));
+          .then((response: { data: any }) => resolve(response.data))
+          .catch((error: { response: { data: any } }) =>
+            reject(error.response.data),
+          );
       }, 500 * i);
     });
   });
   return Promise.all(promises);
 };
+
+function errorHandler(error: any) {
+  console.error(JSON.stringify(error.response.data));
+}
 
 /**
 
@@ -113,23 +123,19 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 @async
 @returns {void}
 */
-function main(center: Center): Promise<void> {
-  console.log('center: ', JSON.stringify(center));
-  return new Promise(async (resolve, reject) => {
-    try {
-      const centerResponse = await setCenter(center.name, center.address);
-      console.log('center response: ', JSON.stringify(centerResponse))
-      const centerID = centerResponse.data._id;
-      await setCenterPrograms(center.name);
-      await setEvent(center.name, center.hubspotFormID, centerID);
-      await setCenterCarousel(center.name);
-      console.log(`all done! ${center.name} is ready to go!`);
-      resolve();
-    } catch (error) {
-      console.log(JSON.stringify(error.response.data));
-      reject(error);
-    }
-  });
+async function main(center: Center): Promise<void> {
+  console.debug('center input: ', JSON.stringify(center));
+  const centerResponse = await setCenter(center.name, center.address).catch(
+    errorHandler,
+  );
+  console.info('center response: ', JSON.stringify(centerResponse));
+  const centerID = centerResponse.data._id;
+  await setCenterPrograms(center.name).catch(errorHandler);
+  await setEvent(center.name, center.hubspotFormID, centerID).catch(
+    errorHandler,
+  );
+  await setCenterCarousel(center.name).catch(errorHandler);
+  console.info(`all done! ${center.name} is ready to go!`);
 }
 
 export default main;
