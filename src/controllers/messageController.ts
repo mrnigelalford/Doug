@@ -1,29 +1,59 @@
 import { TagEvent } from "../types/webhook";
 import { Task } from "../types/clickupTask";
-import * as dotenv from 'dotenv'
+import * as dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
 const setPostTag = async (task_id: string, tag_name: string) => {
   const query = new URLSearchParams({
-    custom_task_ids: 'true',
-    team_id: '36109037'
+    custom_task_ids: "true",
+    team_id: "36109037",
   }).toString();
 
-  console.log('setting tag: ', tag_name);
+  console.log("setting tag: ", tag_name);
 
-  const resp = await fetch(
+  return fetch(
     `https://api.clickup.com/api/v2/task/${task_id}/tag/${tag_name}?${query}`,
     {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K'
-      }
+        "Content-Type": "application/json",
+        Authorization: "pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K",
+      },
     }
   );
+};
 
-  console.log(await resp.text());
+
+/**
+ * Comment on a ClickUp task.
+ * @param {Task} task - The ClickUp task to comment on.
+ * @param {string} team_id - The ID of the team that the task belongs to.
+ * @returns {Promise<void>} - A Promise that resolves with no value when the comment is posted.
+ */
+const commentOnTask = async (task_id: string, team_id: string) => {
+  console.log("comment received: ", task_id, " : ", team_id);
+  const query = new URLSearchParams({
+    custom_task_ids: "true",
+    team_id: "36109037",
+  }).toString();
+
+  return fetch(
+    `https://api.clickup.com/api/v2/task/${task_id}/comment?${query}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K",
+      },
+      body: JSON.stringify({
+        comment_text:
+          "Great news! We will create a new center. Progess will be commented here.",
+        assignee: 38277878, // Nigel Alford ID
+        notify_all: true,
+      }),
+    }
+  );
 };
 
 /**
@@ -56,51 +86,25 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
   }
   const data: Task = await resp.json();
 
-  const no_automation = data.tags.filter((tag) => tag.name === "automation-complete").length <= 0;
+  const no_automation =
+    data.tags.filter((tag) => tag.name === "automation-complete").length <= 0;
 
-  if (data.tags.filter((tag) => tag.name === "automation-new-center").length && no_automation) {
+  if (
+    data.tags.filter((tag) => tag.name === "automation-new-center").length &&
+    no_automation
+  ) {
     console.log(
       `🚀 Correct tag has been on task: ${data.name}. Ready to create a new center!`
     );
     await commentOnTask(data.id, "36109037");
-    await setPostTag(data.id, 'automation-complete')
-    console.log('comment posted');
+    console.log("comment posted");
+    await setPostTag(data.id, "automation-complete");
+    console.log("tag set");
   } else {
     console.log(
       `💤 incorrect tag has been seen. We are not ready to create a new center`
     );
   }
-};
-
-/**
- * Comment on a ClickUp task.
- * @param {Task} task - The ClickUp task to comment on.
- * @param {string} team_id - The ID of the team that the task belongs to.
- * @returns {Promise<void>} - A Promise that resolves with no value when the comment is posted.
- */
-const commentOnTask = async (task_id: string, team_id: string) => {
-  console.log('comment received: ', task_id, ' : ', team_id)
-  const query = new URLSearchParams({
-    custom_task_ids: "true",
-    team_id: '36109037',
-  }).toString();
-
-  await fetch(
-    `https://api.clickup.com/api/v2/task/${task_id}/comment?${query}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: 'pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K',
-      },
-      body: JSON.stringify({
-        comment_text:
-          "Great news! We will create a new center. Progess will be commented here.",
-        assignee: 38277878, // Nigel Alford ID
-        notify_all: true,
-      }),
-    }
-  );
 };
 
 export { handleMessage };
