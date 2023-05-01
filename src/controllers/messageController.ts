@@ -1,7 +1,7 @@
 import { TagEvent } from "../types/webhook";
 import { Task } from "../types/clickupTask";
 import * as dotenv from "dotenv";
-import main  from "../webflow/setCenterFlow";
+import main from "../webflow/setCenterFlow";
 import { Center } from "../types/webflow";
 
 const inputs: Center = {
@@ -32,7 +32,6 @@ const setPostTag = async (task_id: string, tag_name: string) => {
     }
   );
 };
-
 
 /**
  * Comment on a ClickUp task.
@@ -88,31 +87,31 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
         },
       }
     );
+    const data: Task = await resp.json();
+
+    const no_automation =
+      data.tags.filter((tag) => tag.name === "automation-complete").length <= 0;
+
+    if (
+      data.tags.filter((tag) => tag.name === "automation-new-center").length &&
+      no_automation
+    ) {
+      console.log(
+        `🚀 Correct tag has been on task: ${data.name}. Ready to create a new center!`
+      );
+      await commentOnTask(data.id, process.env.CLICKUP_TOCA_TEAM_ID);
+      console.log("comment posted");
+      await main(inputs);
+      await setPostTag(data.id, "automation-complete");
+      console.log("tag set");
+    } else {
+      console.log(
+        `💤 incorrect tag has been seen. We are not ready to create a new center`
+      );
+    }
   } catch (error) {
     console.log(error);
     return;
-  }
-  const data: Task = await resp.json();
-
-  const no_automation =
-    data.tags.filter((tag) => tag.name === "automation-complete").length <= 0;
-
-  if (
-    data.tags.filter((tag) => tag.name === "automation-new-center").length &&
-    no_automation
-  ) {
-    console.log(
-      `🚀 Correct tag has been on task: ${data.name}. Ready to create a new center!`
-    );
-    await commentOnTask(data.id, process.env.CLICKUP_TOCA_TEAM_ID);
-    console.log("comment posted");
-    await main(inputs)
-    await setPostTag(data.id, "automation-complete");
-    console.log("tag set");
-  } else {
-    console.log(
-      `💤 incorrect tag has been seen. We are not ready to create a new center`
-    );
   }
 };
 
