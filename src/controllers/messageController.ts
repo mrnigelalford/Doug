@@ -62,7 +62,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
   const resp = await fetch(
     `https://api.clickup.com/api/v2/task/${task_id}/comment?${query}`,
     {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: 'pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K',
@@ -70,7 +70,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       body: JSON.stringify({
         comment_text:
           "Great news! We will create a new center. Progess will be commented here.",
-        assignee: '38277878', // Nigel Alford ID
+        assignee: 38277878, // Nigel Alford ID
         notify_all: true,
       }),
     }
