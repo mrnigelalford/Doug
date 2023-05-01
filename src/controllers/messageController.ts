@@ -83,7 +83,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
     team_id: '36109037',
   }).toString();
 
-  const resp = await fetch(
+  await fetch(
     `https://api.clickup.com/api/v2/task/${task_id}/comment?${query}`,
     {
       method: "POST",
@@ -99,8 +99,8 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       }),
     }
   );
-  console.log(await resp.json());
   await setPostTag(task_id, 'automation-complete')
+  console.log('comment posted');
 };
 
 export { handleMessage };
