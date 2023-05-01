@@ -33,7 +33,6 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
     return;
   }
   const data: Task = await resp.json();
-  console.log('task: ', data);
 
   if (data.tags.filter((tag) => tag.name === "automation-new-center").length) {
     console.log(
@@ -66,7 +65,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: process.env.CLICKUP_API_KEY,
+        Authorization: 'pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K',
       },
       body: JSON.stringify({
         comment_text:
