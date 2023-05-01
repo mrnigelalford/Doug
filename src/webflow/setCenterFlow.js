@@ -1,0 +1,126 @@
+require("dotenv").config();
+const axios = require("axios");
+const { getCenterPrograms } = require("./template_centerPrograms");
+const { getEvent } = require("./getEvent");
+const { getCarousel } = require("./getCarousel");
+const { getCenter } = require("./getCenter");
+
+// TO USE THIS SCRIPT:
+// 1. Set the centerName, address, centerID, and hubspotFormID variables below.
+// 2. Run the script with the command `node setCenterFlow.js`.
+// 3. If the script fails, check the console output for error messages.
+
+const address = "3601 W. 145th St. Burnsville, MN";
+const centerName = "Burnsville";
+let centerID = "001"; // get this from the center slug
+const hubspotFormID = "a0f0b0c0-d0e0-0000-0000-000000000000"; // get this from the hubspot form
+
+/**
+ * Configuration object for axios requests.
+ * @constant {Object}
+ * @property {Object} headers - Request headers.
+ * @property {string} headers.accept - Requested response format.
+ * @property {string} headers.content-type - Request payload format.
+ * @property {string} headers.authorization - Webflow API key.
+ */
+const axiosConfig = {
+  headers: {
+    accept: "application/json",
+    "content-type": "application/json",
+    authorization: process.env.WEBFLOW_API_KEY,
+  },
+};
+
+/**
+ * Sends a POST request to the Webflow API to create an item in a collection.
+ * @param {string} collectionId - ID of the target collection.
+ * @param {Object} fields - Object containing field names and values.
+ * @returns {Promise} Promise that resolves with the server response or rejects with an error.
+ */
+const setItem = (collectionId, fields) => {
+  return axios.post(
+    `https://api.webflow.com/collections/${collectionId}/items`,
+    {
+      fields,
+    },
+    axiosConfig
+  );
+};
+
+/**
+ * Sends a POST request to the Webflow API to create a center item.
+ * @param {string} centerName - Name of the center to create.
+ * @param {string} address - Address of the center to create.
+ * @returns {Promise} Promise that resolves with the server response or rejects with an error.
+ */
+const setCenter = (centerName, address) => {
+  const collectionId = "64492d7ee2522e3a782b51be";
+  const fields = getCenter(centerName, address);
+  return setItem(collectionId, fields);
+};
+
+/**
+ * Sends a POST request to the Webflow API to create an event item.
+ * @param {string} centerName - Name of the center associated with the event.
+ * @param {string} hubspotFormID - ID of the HubSpot form associated with the event.
+ * @param {string|null} centerID - ID of the center associated with the event, or null if not available.
+ * @returns {Promise} Promise that resolves with the server response or rejects with an error.
+ */
+const setEvent = (centerName, hubspotFormID, centerID) => {
+  const collectionId = "64492d7ee2522e284a2b51cd";
+  const fields = getEvent(centerName, hubspotFormID, centerID || "");
+  return setItem(collectionId, fields);
+};
+
+/**
+ * Sends a POST request to the Webflow API to create a center carousel item.
+ * @param {string} centerName - Name of the center associated with the carousel.
+ * @returns {Promise} Promise that resolves with the server response or rejects with an error.
+ */
+const setCenterCarousel = (centerName) => {
+  const collectionId = "64492d7ee2522e32452b51c3";
+  const fields = getCarousel(centerName);
+  return setItem(collectionId, fields);
+};
+
+/**
+ * Sends multiple POST requests to the Webflow API to create program items for a center.
+ * @param {string} centerName - Name of the center associated with the programs.
+ * @returns {Promise} Promise that resolves with an array of server responses or rejects with an error.
+ */
+const setCenterPrograms = async (centerName) => {
+  const collectionId = "64492d7ee2522e4b272b51c9";
+  const programs = getCenterPrograms(centerName);
+  const promises = programs.map((program, i) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        setItem(collectionId, program)
+          .then((response) => resolve(response.data))
+          .catch((error) => reject(error.response.data));
+      }, 500 * i);
+    });
+  });
+  return Promise.all(promises);
+};
+
+
+/**
+
+Main function that executes the setCenter, setCenterPrograms, setEvent, and setCenterCarousel functions in sequence.
+@async
+@returns {void}
+*/
+async function main() {
+  try {
+    const centerResponse = await setCenter(centerName, address);
+    centerID = centerResponse.data._id;
+    await setCenterPrograms(centerName);
+    await setEvent(centerName, hubspotFormID, centerID);
+    await setCenterCarousel(centerName);
+    console.log(`all done! ${centerName} is ready to go!`);
+  } catch (error) {
+    console.log(JSON.stringify(error.response.data));
+  }
+}
+
+main();
