@@ -95,18 +95,17 @@ const setCenterCarousel = (centerName: String) => {
 const setCenterPrograms = async (centerName: String) => {
   const collectionId = "64492d7ee2522e4b272b51c9";
   const programs = getCenterPrograms(centerName);
-  const promises = programs.map((program, i) => {
+  const promises = programs.map((program: any, i: number) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         setItem(collectionId, program)
-          .then((response) => resolve(response.data))
-          .catch((error) => reject(error.response.data));
+          .then((response: {data: any}) => resolve(response.data))
+          .catch((error:{response:{data:any}}) => reject(error.response.data));
       }, 500 * i);
     });
   });
   return Promise.all(promises);
 };
-
 
 /**
 
@@ -114,17 +113,23 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 @async
 @returns {void}
 */
-async function main(center: Center): Promise<any> {
-  try {
-    const centerResponse = await setCenter(center.name, center.address);
-    const centerID = centerResponse.data._id;
-    await setCenterPrograms(center.name);
-    await setEvent(center.name, center.hubspotFormID, centerID);
-    await setCenterCarousel(center.name);
-    console.log(`all done! ${center.name} is ready to go!`);
-  } catch (error) {
-    console.log(JSON.stringify(error.response.data));
-  }
+function main(center: Center): Promise<void> {
+  console.log('center: ', JSON.stringify(center));
+  return new Promise(async (resolve, reject) => {
+    try {
+      const centerResponse = await setCenter(center.name, center.address);
+      console.log('center response: ', JSON.stringify(centerResponse))
+      const centerID = centerResponse.data._id;
+      await setCenterPrograms(center.name);
+      await setEvent(center.name, center.hubspotFormID, centerID);
+      await setCenterCarousel(center.name);
+      console.log(`all done! ${center.name} is ready to go!`);
+      resolve();
+    } catch (error) {
+      console.log(JSON.stringify(error.response.data));
+      reject(error);
+    }
+  });
 }
 
 export default main;
