@@ -13,7 +13,7 @@ dotenv.config()
 const handleMessage = async (message: TagEvent): Promise<void> => {
   const query = new URLSearchParams({
     custom_task_ids: "true",
-    team_id: process.env.CLICKUP_TOCA_TEAM_ID,
+    team_id: "36109037",
     include_subtasks: "true",
   }).toString();
 
@@ -24,7 +24,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       {
         method: "GET",
         headers: {
-          Authorization: process.env.CLICKUP_API_KEY,
+          Authorization: "pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K",
         },
       }
     );
@@ -70,7 +70,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       body: JSON.stringify({
         comment_text:
           "Great news! We will create a new center. Progess will be commented here.",
-        assignee: 38277878, // Nigel Alford ID
+        assignee: '38277878', // Nigel Alford ID
         notify_all: true,
       }),
     }
