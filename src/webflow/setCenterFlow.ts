@@ -132,7 +132,7 @@ async function main(center: Center): Promise<void> {
   try {
     const centerResponse = await setCenter(center.name, center.address);
     console.info('center response: ', JSON.stringify(centerResponse));
-    const centerID = centerResponse.data._id;
+    const centerID = centerResponse._id;
     await setCenterPrograms(center.name);
     await setEvent(center.name, center.hubspotFormID, centerID);
     await setCenterCarousel(center.name);
