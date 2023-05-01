@@ -63,6 +63,8 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       `🚀 Correct tag has been on task: ${data.name}. Ready to create a new center!`
     );
     await commentOnTask(data.id, "36109037");
+    await setPostTag(data.id, 'automation-complete')
+    console.log('comment posted');
   } else {
     console.log(
       `💤 incorrect tag has been seen. We are not ready to create a new center`
@@ -99,8 +101,6 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       }),
     }
   );
-  await setPostTag(task_id, 'automation-complete')
-  console.log('comment posted');
 };
 
 export { handleMessage };
