@@ -70,7 +70,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       body: JSON.stringify({
         comment_text:
           "Great news! We will create a new center. Progess will be commented here.",
-        assignee: process.env.CLICKUP_NIGEL, // Nigel Alford ID
+        assignee: 38277878, // Nigel Alford ID
         notify_all: true,
       }),
     }
