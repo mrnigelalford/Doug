@@ -42,6 +42,7 @@ const axiosConfig = {
  * @returns {Promise} Promise that resolves with the server response or rejects with an error.
  */
 const setItem = (collectionId: String, fields: any) => {
+  console.info('setting with webflow api key: ', process.env.WEBFLOW_API_KEY)
   return axios.post(
     `https://api.webflow.com/collections/${collectionId}/items`,
     {
