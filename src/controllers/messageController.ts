@@ -57,7 +57,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
   console.log('comment received: ', task_id, ' : ', team_id)
   const query = new URLSearchParams({
     custom_task_ids: "true",
-    team_id,
+    team_id: '36109037',
   }).toString();
 
   const resp = await fetch(
