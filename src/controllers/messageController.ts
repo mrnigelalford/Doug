@@ -4,6 +4,26 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
+const setPostTag = async (task_id: string, tag_name: string) => {
+  const query = new URLSearchParams({
+    custom_task_ids: 'true',
+    team_id: '36109037'
+  }).toString();
+
+  const resp = await fetch(
+    `https://api.clickup.com/api/v2/task/${task_id}/tag/${tag_name}?${query}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K'
+      }
+    }
+  );
+
+  console.log(await resp.text());
+};
+
 /**
  * Handles incoming clickup task create/update.
  * @param {TagEvent} message - The incoming message to handle.
@@ -34,7 +54,9 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
   }
   const data: Task = await resp.json();
 
-  if (data.tags.filter((tag) => tag.name === "automation-new-center").length) {
+  const no_automation = data.tags.filter((tag) => tag.name === "automation-complete").length <= 0;
+
+  if (data.tags.filter((tag) => tag.name === "automation-new-center").length && no_automation) {
     console.log(
       `🚀 Correct tag has been on task: ${data.name}. Ready to create a new center!`
     );
@@ -75,8 +97,8 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       }),
     }
   );
-
   console.log(await resp.json());
+  await setPostTag(task_id, 'automation-complete')
 };
 
 export { handleMessage };
