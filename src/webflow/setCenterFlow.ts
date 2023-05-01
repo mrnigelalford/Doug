@@ -128,7 +128,7 @@ async function main(center: Center): Promise<void> {
   const centerResponse = await setCenter(center.name, center.address).catch(
     errorHandler,
   );
-  console.info('center response: ', JSON.stringify(centerResponse));
+  console.info('center response: ', JSON.stringify(await centerResponse));
   const centerID = centerResponse.data._id;
   await setCenterPrograms(center.name).catch(errorHandler);
   await setEvent(center.name, center.hubspotFormID, centerID).catch(
