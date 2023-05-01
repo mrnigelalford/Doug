@@ -34,7 +34,7 @@ const setItem = async (collectionId: string, fields: any) => {
       headers,
       body: JSON.stringify({ fields }),
     });
-    if (response.ok) {
+    if (response) {
       return response.json();
     } else {
       throw new Error(
