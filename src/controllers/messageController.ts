@@ -6,8 +6,8 @@ import { Center } from "../types/webflow";
 
 const inputs: Center = {
   address: "3601 W. 145th St. Burnsville, MN",
-  centerName: "Burnsville",
-  centerID: "001", // get this from the center slug
+  name: "Burnsville",
+  ID: "001", // get this from the center slug
   hubspotFormID: "a0f0b0c0-d0e0-0000-0000-000000000000", // get this from the hubspot form
 };
 
