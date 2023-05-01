@@ -54,6 +54,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
  * @returns {Promise<void>} - A Promise that resolves with no value when the comment is posted.
  */
 const commentOnTask = async (task_id: string, team_id: string) => {
+  console.log('comment received: ', task_id, ' : ', team_id)
   const query = new URLSearchParams({
     custom_task_ids: "true",
     team_id,
