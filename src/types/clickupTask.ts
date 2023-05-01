@@ -26,6 +26,7 @@ export interface Task {
   folder: Folder;
   space: Folder;
   url: string;
+  customFields: CustomField[];
 }
 
 interface Tag {
@@ -49,7 +50,7 @@ export interface CustomField {
   type_config: TypeConfig;
   date_created: string;
   hide_from_guests: boolean;
-  value: Value;
+  value: string;
   required: boolean;
 }
 

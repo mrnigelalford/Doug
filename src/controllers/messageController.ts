@@ -3,6 +3,8 @@ import { Task } from '../types/clickupTask';
 import * as dotenv from 'dotenv';
 import main from '../webflow/setCenterFlow';
 import { Center } from '../types/webflow';
+import { createHubspotForm } from './createHSForm';
+import { HSForm } from '../types/hubspot';
 
 const inputs: Center = {
   address: '3601 W. 145th St. Burnsville, MN',
@@ -55,8 +57,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       },
       body: JSON.stringify({
         comment_text:
-          'Great news! We will create a new center. Progess will be commented here.',
-        assignee: 38277878, // Nigel Alford ID
+          'Great news! We will create a new center. "automation-complete" tag will be added after the center is created.',
         notify_all: true,
       }),
     },
@@ -101,7 +102,15 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       );
       await commentOnTask(data.id, process.env.CLICKUP_TOCA_TEAM_ID);
       console.info('comment posted');
-      await main(inputs);
+      const setHubspotForm = await createHubspotForm(data.customFields.filter(f => f.name === 'Center Name')[0].value);
+      const HSForm = setHubspotForm.json() as unknown as HSForm;
+      
+      await main({
+        address: data.customFields.filter(f => f.name === 'Center Address')[0].value,
+        name: data.customFields.filter(f => f.name === 'Center Name')[0].value,
+        ID: '001', // get this from the center slug,
+        hubspotFormID: HSForm.guid
+      });
       await setPostTag(data.id, 'automation-complete');
       console.info('tag set');
     } else {
