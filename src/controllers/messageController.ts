@@ -10,6 +10,8 @@ const setPostTag = async (task_id: string, tag_name: string) => {
     team_id: '36109037'
   }).toString();
 
+  console.log('setting tag: ', tag_name);
+
   const resp = await fetch(
     `https://api.clickup.com/api/v2/task/${task_id}/tag/${tag_name}?${query}`,
     {
