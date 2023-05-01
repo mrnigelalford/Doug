@@ -7,7 +7,7 @@ dotenv.config();
 const setPostTag = async (task_id: string, tag_name: string) => {
   const query = new URLSearchParams({
     custom_task_ids: "true",
-    team_id: "36109037",
+    team_id: process.env.CLICKUP_TOCA_TEAM_ID,
   }).toString();
 
   console.log("setting tag: ", tag_name);
@@ -18,7 +18,7 @@ const setPostTag = async (task_id: string, tag_name: string) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K",
+        Authorization: process.env.CLICKUP_API_KEY,
       },
     }
   );
@@ -32,10 +32,9 @@ const setPostTag = async (task_id: string, tag_name: string) => {
  * @returns {Promise<void>} - A Promise that resolves with no value when the comment is posted.
  */
 const commentOnTask = async (task_id: string, team_id: string) => {
-  console.log("comment received: ", task_id, " : ", team_id);
   const query = new URLSearchParams({
     custom_task_ids: "true",
-    team_id: "36109037",
+    team_id,
   }).toString();
 
   return fetch(
@@ -44,7 +43,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K",
+        Authorization: process.env.CLICKUP_API_KEY,
       },
       body: JSON.stringify({
         comment_text:
@@ -65,7 +64,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
 const handleMessage = async (message: TagEvent): Promise<void> => {
   const query = new URLSearchParams({
     custom_task_ids: "true",
-    team_id: "36109037",
+    team_id: process.env.CLICKUP_TOCA_TEAM_ID,
     include_subtasks: "true",
   }).toString();
 
@@ -76,7 +75,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       {
         method: "GET",
         headers: {
-          Authorization: "pk_38277878_6WRS4IDMB54FS5TS9IEQ5MOIFLXB842K",
+          Authorization: process.env.CLICKUP_API_KEY,
         },
       }
     );
@@ -96,7 +95,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
     console.log(
       `🚀 Correct tag has been on task: ${data.name}. Ready to create a new center!`
     );
-    await commentOnTask(data.id, "36109037");
+    await commentOnTask(data.id, process.env.CLICKUP_TOCA_TEAM_ID);
     console.log("comment posted");
     await setPostTag(data.id, "automation-complete");
     console.log("tag set");
