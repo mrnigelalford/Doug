@@ -10,10 +10,12 @@ const { getCenter } = require("./getCenter");
 // 2. Run the script with the command `node setCenterFlow.js`.
 // 3. If the script fails, check the console output for error messages.
 
-const address = "3601 W. 145th St. Burnsville, MN";
-const centerName = "Burnsville";
-let centerID = "001"; // get this from the center slug
-const hubspotFormID = "a0f0b0c0-d0e0-0000-0000-000000000000"; // get this from the hubspot form
+const inputs = {
+  address: "3601 W. 145th St. Burnsville, MN",
+  centerName: "Burnsville",
+  centerID: "001", // get this from the center slug
+  hubspotFormID: "a0f0b0c0-d0e0-0000-0000-000000000000", // get this from the hubspot form
+}
 
 /**
  * Configuration object for axios requests.
@@ -110,17 +112,17 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 @async
 @returns {void}
 */
-async function main() {
+async function main(input) {
   try {
-    const centerResponse = await setCenter(centerName, address);
+    const centerResponse = await setCenter(centerName, input.address);
     centerID = centerResponse.data._id;
-    await setCenterPrograms(centerName);
-    await setEvent(centerName, hubspotFormID, centerID);
-    await setCenterCarousel(centerName);
-    console.log(`all done! ${centerName} is ready to go!`);
+    await setCenterPrograms(input.centerName);
+    await setEvent(input.centerName, input.hubspotFormID, input.centerID);
+    await setCenterCarousel(input.centerName);
+    console.log(`all done! ${input.centerName} is ready to go!`);
   } catch (error) {
     console.log(JSON.stringify(error.response.data));
   }
 }
 
-main();
+module.exports.main = main;

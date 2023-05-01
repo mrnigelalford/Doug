@@ -1,6 +1,21 @@
 import { TagEvent } from "../types/webhook";
 import { Task } from "../types/clickupTask";
 import * as dotenv from "dotenv";
+import { main } from "../webflow/setCenterFlow";
+
+interface Inputs{
+  address: string;
+  centerName: string;
+  centerID: string;
+  hubspotFormID: string;
+}
+
+const inputs: Inputs = {
+  address: "3601 W. 145th St. Burnsville, MN",
+  centerName: "Burnsville",
+  centerID: "001", // get this from the center slug
+  hubspotFormID: "a0f0b0c0-d0e0-0000-0000-000000000000", // get this from the hubspot form
+};
 
 dotenv.config();
 
@@ -97,6 +112,8 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
     );
     await commentOnTask(data.id, process.env.CLICKUP_TOCA_TEAM_ID);
     console.log("comment posted");
+
+    await main(inputs)
     await setPostTag(data.id, "automation-complete");
     console.log("tag set");
   } else {
