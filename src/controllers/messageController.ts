@@ -6,6 +6,7 @@ import { createHubspotForm } from './createHSForm';
 import { HSForm } from '../types/hubspot';
 
 dotenv.config();
+let comment;
 
 const setPostTag = async (task_id: string, tag_name: string) => {
   const query = new URLSearchParams({
@@ -33,7 +34,7 @@ const setPostTag = async (task_id: string, tag_name: string) => {
  * @param {string} team_id - The ID of the team that the task belongs to.
  * @returns {Promise<void>} - A Promise that resolves with no value when the comment is posted.
  */
-const commentOnTask = async (task_id: string, team_id: string) => {
+const commentOnTask = async (task_id: string, team_id: string, comment_text: string) => {
   const query = new URLSearchParams({
     custom_task_ids: 'true',
     team_id,
@@ -48,8 +49,7 @@ const commentOnTask = async (task_id: string, team_id: string) => {
         Authorization: process.env.CLICKUP_API_KEY,
       },
       body: JSON.stringify({
-        comment_text:
-          'Great news! We will create a new center. "automation-complete" tag will be added after the center is created.',
+        comment_text,
         notify_all: true,
       }),
     },
@@ -89,9 +89,10 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
 
     if (correctTagPresent && noAutomationDone) {
       console.info(`🚀 Correct tag has been seen on task: ${task.name}. Ready to create a new center!`);
+      comment = `🚀 Correct tag has been seen on task: ${task.name}. Ready to create a new center!`;
 
       // Comment on the task
-      await commentOnTask(task.id, process.env.CLICKUP_TOCA_TEAM_ID);
+      await commentOnTask(task.id, process.env.CLICKUP_TOCA_TEAM_ID, comment);
       console.info('Comment posted');
 
       // Create Hubspot form and get its ID
@@ -110,6 +111,10 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
 
       // Set tag to indicate automation is complete
       await setPostTag(task.id, 'automation-complete');
+
+      // Add completion comment to task
+      comment = `🚀 Center automation complete!`;
+      await commentOnTask(task.id, process.env.CLICKUP_TOCA_TEAM_ID, comment);
     } else {
       console.info(`💤 Incorrect tag has been seen. We are not ready to create a new center.`);
     }
