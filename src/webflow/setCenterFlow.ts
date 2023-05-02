@@ -101,7 +101,7 @@ const setCenterCarousel = async (centerName: string) => {
  */
 const setCenterPrograms = async (centerName: string) => {
   const collectionId = '64492d7ee2522e4b272b51c9';
-  const programs = getCenterPrograms(centerName);
+  const programs = getCenterPrograms(centerName); // TODO: get programs from Webflow API
   const promises = programs.map((program: any, i: number) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -126,7 +126,7 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 @async
 @returns {void}
 */
-async function main(center: Center): Promise<void> {
+async function setNewCenter(center: Center): Promise<void> {
   try {
     const centerResponse = await setCenter(center.name, center.address);
     console.info('center set successful with id: ', JSON.stringify(centerResponse._id));
@@ -142,4 +142,4 @@ async function main(center: Center): Promise<void> {
   }
 }
 
-export default main;
+export default setNewCenter;

@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import { TagEvent } from '../types/webhook';
 import { Task } from '../types/clickupTask';
-import main from '../webflow/setCenterFlow';
+import setNewCenter from '../webflow/setCenterFlow';
 import { createHubspotForm } from './createHSForm';
 import { HSForm } from '../types/hubspot';
 
@@ -103,7 +103,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       console.info('Hubspot form created: ', JSON.stringify(HSForm))
       
       // Call main function with necessary details
-      await main({
+      await setNewCenter({
         address: task.custom_fields.find(f => f.name === 'Center Address').value,
         name: centerName,
         hubspotFormID: HSForm.guid
