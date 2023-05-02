@@ -63,15 +63,16 @@ const commentOnTask = async (task_id: string, team_id: string) => {
  */
 
 const handleMessage = async (message: TagEvent): Promise<void> => {
+  // Construct query parameters for API request
   const query = new URLSearchParams({
     custom_task_ids: 'true',
     team_id: process.env.CLICKUP_TOCA_TEAM_ID,
     include_subtasks: 'true',
-  }).toString();
+  });
 
-  let resp: Response;
   try {
-    resp = await fetch(
+    // Send GET request to ClickUp API for task details
+    const resp = await fetch(
       `https://api.clickup.com/api/v2/task/${message.task_id}?${query}`,
       {
         method: 'GET',
@@ -82,40 +83,40 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
     );
     const task: Task = await resp.json();
 
-    const no_automation =
-      task.tags.filter(tag => tag.name === 'automation-complete').length <= 0;
+    // Check if correct tag is present and no automation has been done yet
+    const correctTagPresent = task.tags.some(tag => tag.name === 'automation-new-center');
+    const noAutomationDone = !task.tags.some(tag => tag.name === 'automation-complete');
 
-    if (
-      task.tags.filter(tag => tag.name === 'automation-new-center').length &&
-      no_automation
-    ) {
-      console.info(
-        `🚀 Correct tag has been on task: ${task.name}. Ready to create a new center!`,
-      );
+    if (correctTagPresent && noAutomationDone) {
+      console.info(`🚀 Correct tag has been seen on task: ${task.name}. Ready to create a new center!`);
+
+      // Comment on the task
       await commentOnTask(task.id, process.env.CLICKUP_TOCA_TEAM_ID);
-      console.info('comment posted');
+      console.info('Comment posted');
 
-      console.debug('clickup task: ', JSON.stringify(task))
-      const setHubspotForm = await createHubspotForm(task.customFields.filter(f => f.name === 'Center Name')[0].value);
-      const HSForm = setHubspotForm.json() as unknown as HSForm;
+      // Create Hubspot form and get its ID
+      const centerName = task.custom_fields.find(f => f.name === 'Center Name').value;
+      const setHubspotForm = await createHubspotForm(centerName);
+      const HSForm = await setHubspotForm.json() as unknown as HSForm;
       
+      // Call main function with necessary details
       await main({
-        address: task.customFields.filter(f => f.name === 'Center Address')[0].value,
-        name: task.customFields.filter(f => f.name === 'Center Name')[0].value,
-        ID: '001', // get this from the center slug,
+        address: task.custom_fields.find(f => f.name === 'Center Address').value,
+        name: centerName,
+        ID: '001', // TODO: get this from the center slug
         hubspotFormID: HSForm.guid
       });
+
+      // Set tag to indicate automation is complete
       await setPostTag(task.id, 'automation-complete');
-      console.info('tag set');
+      console.info('Tag set');
     } else {
-      console.info(
-        `💤 incorrect tag has been seen. We are not ready to create a new center`,
-      );
+      console.info(`💤 Incorrect tag has been seen. We are not ready to create a new center.`);
     }
   } catch (error) {
     console.error(JSON.stringify(error));
-    return;
   }
 };
+
 
 export { handleMessage };
