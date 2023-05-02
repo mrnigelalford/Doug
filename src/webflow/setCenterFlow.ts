@@ -20,7 +20,6 @@ const centerCollectionId = '64492d7ee2522e3a782b51be';
  * @returns Promise that resolves with the server response or rejects with an error.
  */
 const setItem = async (collectionId: string, fields: any) => {
-  console.info('setting with webflow api key: ', process.env.WEBFLOW_API_KEY);
   const url = `https://api.webflow.com/collections/${collectionId}/items`;
   const headers = {
     accept: 'application/json',
@@ -128,14 +127,15 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 @returns {void}
 */
 async function main(center: Center): Promise<void> {
-  console.debug('center input: ', JSON.stringify(center));
   try {
     const centerResponse = await setCenter(center.name, center.address);
-    console.info('center response: ', JSON.stringify(centerResponse));
+    console.info('center set successful with id: ', JSON.stringify(centerResponse._id));
+
     const centerID = centerResponse._id;
     await setCenterPrograms(center.name);
     await setEvent(center.name, center.hubspotFormID, centerID);
     await setCenterCarousel(center.name);
+
     console.info(`all done! ${center.name} is ready to go!`);
   } catch (error) {
     errorHandler(error);
