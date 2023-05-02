@@ -29,7 +29,7 @@ export const createHubspotForm = async (centerName: string): Promise<any> => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.hubspotApiKey}`,
+      Authorization: `Bearer ${process.env.Hubspot_API_Key}`,
     },
     body: JSON.stringify(templateForm),
   });
