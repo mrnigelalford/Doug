@@ -98,6 +98,8 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       const centerName = task.custom_fields.find(f => f.name === 'Center Name').value;
       const setHubspotForm = await createHubspotForm(centerName);
       const HSForm = await setHubspotForm.json() as unknown as HSForm;
+
+      console.info('Hubspot form created: ', HSForm)
       
       // Call main function with necessary details
       await main({

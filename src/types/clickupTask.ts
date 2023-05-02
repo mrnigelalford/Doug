@@ -26,7 +26,6 @@ export interface Task {
   folder: Folder;
   space: Folder;
   url: string;
-  customFields: CustomField[];
 }
 
 interface Tag {
