@@ -1,27 +1,36 @@
-import { Client } from "@hubspot/api-client";
-const hubspotClient = new Client({ accessToken: process.env.hubspotApiKey });
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export const createHubspotForm = async (centerName: string): Promise<any> => {
-    // pull the template form
-    const response = await hubspotClient.apiRequest({
-        method: "GET",
-        path: `/forms/v2/forms${process.env.Hubspot_FKO_Template}`
-    });
+  // pull the template form
+  const response = await fetch(
+    `https://api.hubapi.com/forms/v2/forms${process.env.Hubspot_FKO_Template}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.hubspotApiKey}`,
+      },
+    },
+  );
 
-    // update the template form
-    const templateForm = await response.json();
-    console.debug('hubspot templateForm: ', templateForm);
+  // update the template form
+  const templateForm = await response.json();
+  console.debug('hubspot templateForm: ', templateForm);
 
-    templateForm.name = `Website Inquiry - ${centerName} - FKO`;
-    delete templateForm.guid;
-    delete templateForm.portalId;
+  templateForm.name = `Website Inquiry - ${centerName} - FKO`;
+  delete templateForm.guid;
+  delete templateForm.portalId;
 
-    // create a new form
-    return hubspotClient.apiRequest({
-        method: "POST",
-        path: "/forms/v2/forms",
-        body: templateForm
-    });
+  // create a new form
+  return fetch(`https://api.hubapi.com/forms/v2/forms`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.hubspotApiKey}`,
+    },
+    body: JSON.stringify(templateForm),
+  });
 };
 
 // formId: "941b08b7-ae78-4cad-8531-f460eabb25a1"

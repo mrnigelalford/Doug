@@ -1,17 +1,9 @@
+import * as dotenv from 'dotenv';
 import { TagEvent } from '../types/webhook';
 import { Task } from '../types/clickupTask';
-import * as dotenv from 'dotenv';
 import main from '../webflow/setCenterFlow';
-import { Center } from '../types/webflow';
 import { createHubspotForm } from './createHSForm';
 import { HSForm } from '../types/hubspot';
-
-const inputs: Center = {
-  address: '3601 W. 145th St. Burnsville, MN',
-  name: 'Burnsville',
-  ID: '001', // get this from the center slug
-  hubspotFormID: 'a0f0b0c0-d0e0-0000-0000-000000000000', // get this from the hubspot form
-};
 
 dotenv.config();
 
