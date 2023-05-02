@@ -3,10 +3,10 @@ dotenv.config();
 
 export const createHubspotForm = async (centerName: string): Promise<any> => {
   // pull the template form
-  console.info('getting template form: ', centerName);
+  console.info('hubspotapi: ', `https://api.hubapi.com/forms/v2/forms/${process.env.Hubspot_FKO_Template}`);
 
   const response = await fetch(
-    `https://api.hubapi.com/forms/v2/forms${process.env.Hubspot_FKO_Template}`,
+    `https://api.hubapi.com/forms/v2/forms/${process.env.Hubspot_FKO_Template}`,
     {
       method: 'GET',
       headers: {
