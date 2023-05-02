@@ -8,6 +8,8 @@ const headers = {
 
 export const createHubspotForm = async (centerName: string): Promise<any> => {
   // pull the template form
+  console.info(`hubspot url: https://api.hubapi.com/forms/v2/forms/${process.env.Hubspot_FKO_Template}`)
+
   const response = await fetch(
     `https://api.hubapi.com/forms/v2/forms/${process.env.Hubspot_FKO_Template}`,
     {
@@ -34,4 +36,4 @@ export const createHubspotForm = async (centerName: string): Promise<any> => {
   });
 };
 
-// formId: "941b08b7-ae78-4cad-8531-f460eabb25a1"
+// formId: "d5515138-3258-42a0-b36a-a697d3c78da0"
