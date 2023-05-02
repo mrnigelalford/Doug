@@ -105,13 +105,11 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       await main({
         address: task.custom_fields.find(f => f.name === 'Center Address').value,
         name: centerName,
-        ID: '001', // TODO: get this from the center slug
         hubspotFormID: HSForm.guid
       });
 
       // Set tag to indicate automation is complete
       await setPostTag(task.id, 'automation-complete');
-      console.info('Tag set');
     } else {
       console.info(`💤 Incorrect tag has been seen. We are not ready to create a new center.`);
     }

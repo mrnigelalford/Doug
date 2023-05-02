@@ -20,7 +20,6 @@ export const createHubspotForm = async (centerName: string): Promise<any> => {
 
   // update the template form
   const templateForm = await response.json();
-  console.log('hubspot templateForm: ', JSON.stringify(templateForm));
 
   templateForm.name = `Website Inquiry - ${centerName} - FKO`;
   delete templateForm.guid;
