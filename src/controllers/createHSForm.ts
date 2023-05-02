@@ -1,9 +1,7 @@
 import { Client } from "@hubspot/api-client";
-import { HSForm } from "../types/hubspot";
-import { Response } from 'node-fetch';
 const hubspotClient = new Client({ accessToken: process.env.hubspotApiKey });
 
-export const createHubspotForm = async (centerName: string): Promise<Response> => {
+export const createHubspotForm = async (centerName: string): Promise<any> => {
     // pull the template form
     const response = await hubspotClient.apiRequest({
         method: "GET",
