@@ -80,32 +80,32 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
         },
       },
     );
-    const data: Task = await resp.json();
+    const task: Task = await resp.json();
 
     const no_automation =
-      data.tags.filter(tag => tag.name === 'automation-complete').length <= 0;
+      task.tags.filter(tag => tag.name === 'automation-complete').length <= 0;
 
     if (
-      data.tags.filter(tag => tag.name === 'automation-new-center').length &&
+      task.tags.filter(tag => tag.name === 'automation-new-center').length &&
       no_automation
     ) {
       console.info(
-        `🚀 Correct tag has been on task: ${data.name}. Ready to create a new center!`,
+        `🚀 Correct tag has been on task: ${task.name}. Ready to create a new center!`,
       );
-      await commentOnTask(data.id, process.env.CLICKUP_TOCA_TEAM_ID);
+      await commentOnTask(task.id, process.env.CLICKUP_TOCA_TEAM_ID);
       console.info('comment posted');
 
-      console.debug('data: ', JSON.stringify(data))
-      const setHubspotForm = await createHubspotForm(data.customFields.filter(f => f.name === 'Center Name')[0].value);
+      console.debug('clickup task: ', JSON.stringify(task))
+      const setHubspotForm = await createHubspotForm(task.customFields.filter(f => f.name === 'Center Name')[0].value);
       const HSForm = setHubspotForm.json() as unknown as HSForm;
       
       await main({
-        address: data.customFields.filter(f => f.name === 'Center Address')[0].value,
-        name: data.customFields.filter(f => f.name === 'Center Name')[0].value,
+        address: task.customFields.filter(f => f.name === 'Center Address')[0].value,
+        name: task.customFields.filter(f => f.name === 'Center Name')[0].value,
         ID: '001', // get this from the center slug,
         hubspotFormID: HSForm.guid
       });
-      await setPostTag(data.id, 'automation-complete');
+      await setPostTag(task.id, 'automation-complete');
       console.info('tag set');
     } else {
       console.info(
