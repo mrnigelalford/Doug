@@ -95,7 +95,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       await commentOnTask(data.id, process.env.CLICKUP_TOCA_TEAM_ID);
       console.info('comment posted');
 
-      console.debug('data: ', JSON.stringify(data.customFields))
+      console.debug('data: ', JSON.stringify(data))
       const setHubspotForm = await createHubspotForm(data.customFields.filter(f => f.name === 'Center Name')[0].value);
       const HSForm = setHubspotForm.json() as unknown as HSForm;
       
