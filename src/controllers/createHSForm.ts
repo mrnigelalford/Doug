@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+import { testHSForm } from './testForm';
 dotenv.config();
 
 const headers = {
@@ -26,13 +27,15 @@ export const createHubspotForm = async (centerName: string): Promise<any> => {
   delete templateForm.guid;
   delete templateForm.portalId;
   templateForm.name = `Website Inquiry - ${centerName} - FKO`;
+
+  const testForm = JSON.stringify(testHSForm(centerName));
   
-  console.log('hubspot form post mod: ', JSON.stringify(templateForm))
+  console.log('hubspot form post mod: ', testForm)
 
   // create a new form
   return fetch('https://api.hubapi.com/forms/v2/forms', {
     method: 'post',
-    body: JSON.stringify(templateForm),
+    body: testForm,
     headers,
   }).catch(error => {
     console.error('Error creating HubSpot form: ', error.message);
