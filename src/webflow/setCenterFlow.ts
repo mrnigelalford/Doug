@@ -1,5 +1,5 @@
 import { Center } from '../types/webflow';
-import { getEvent } from './getEvent';
+import getEvent from './getEvent';
 import { getCarousel } from './getCarousel';
 import { getCenter } from './getCenter';
 import getCenterPrograms from '../templates/nashville';
@@ -67,13 +67,12 @@ const setCenter = async (center: Center) => {
  * @returns Promise that resolves with the server response or rejects with an error.
  */
 const setEvent = async (
-  centerName: string,
-  hubspotFormID: string,
-  centerID: string,
+  center: Center,
+  centerID
 ) => {
   try {
     const collectionId = '64492d7ee2522e284a2b51cd';
-    const fields = getEvent(centerName, hubspotFormID, centerID || '');
+    const fields = getEvent(center, centerID);
     return setItem(collectionId, fields);
   } catch (event) {
     console.error('error setting event: ', JSON.stringify(event.response.data));
@@ -150,7 +149,7 @@ async function setNewCenter(center: Center): Promise<void> {
     await setCenterPrograms(center);
     console.info('done setting programs')
 
-    await setEvent(center.name, center.hubspotFormID, centerID);
+    await setEvent(center, centerID);
     await setCenterCarousel(center.name);
 
     console.info(`all done! ${center.name} is ready to go!`);
