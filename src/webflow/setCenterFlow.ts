@@ -102,6 +102,8 @@ const setCenterCarousel = async (centerName: string) => {
  * @returns Promise that resolves with an array of server responses or rejects with an error.
  */
 const setCenterPrograms = async (centerName: string, template: string) => {
+  console.info('template: ', template);
+
   let programs = getCenterPrograms({
     name: centerName,
     id: centerProgramsID,
