@@ -143,12 +143,13 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 */
 async function setNewCenter(center: Center): Promise<void> {
   try {
-    const centerResponse = await setCenter(center.name, center.address);
+    const centerResponse = await setCenter(center);
     console.info(
       'center set successful with id: ',
       JSON.stringify(centerResponse._id),
     );
 
+    // update the states collection with the center id
     const centerID = centerResponse._id;
     console.info('setting programs')
     await setCenterPrograms(center.name, center.template);
