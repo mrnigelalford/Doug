@@ -3,4 +3,5 @@ export type Center = {
   name: string;
   hubspotFormID: string;
   template?: string;
+  phone?: string;
 };

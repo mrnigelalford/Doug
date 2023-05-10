@@ -1,40 +1,34 @@
 /**
  * Returns an object containing the fields for creating a new center item.
- * @param {string} centerName - Name of the center.
- * @param {string} address - Address of the center.
+ * @param {string} center.centerName - Name of the center.
+ * @param {string} center.address - Address of the center.
  * @returns {Object} Object containing the fields for creating a new center item.
  */
-const getCenter = (centerName, address) => ({
+const getCenter = (center) => ({
     _archived: false,
     _draft: false,
-    "facebook-url": `https://www.facebook.com/TOCASoccer${centerName}`,
+    "facebook-url": `https://www.facebook.com/TOCASoccer${center.centerName}`,
     "show-events": false,
     closing: false,
     "get-directions-link": "https://goo.gl/maps/buoisPZWnUodJXnf9",
-    email: `${centerName}@tocafootball.com`,
+    email: `${center.centerName}@tocafootball.com`,
     "program-count": 8,
-    "phone-number": "(214) 644-2070",
+    "phone-number": center.phone,
     "hours-m-f": "10:00 AM – 12:00 PM",
-    "short-description": address,
-    name: centerName,
+    "short-description": center.address,
+    name: center.centerName,
     "hours-tuesday": "10:00 AM – 12:00 PM",
-    "body-description": `<blockquote id="">Located in a northern suburb, TOCA ${centerName} is an indoor soccer center offering the next generation of soccer training. <br><br>With our tech-enabled studios and world-class coaches, our training program is ideal for kids 7 years and older looking to take their game to the next level. Whether it\'s individual or group training, our program guarantees player development by focusing on high-quality repetitions and game-like scenarios.<br></blockquote>`,
+    "body-description": `<blockquote id="">Located in a northern suburb, TOCA ${center.centerName} is an indoor soccer center offering the next generation of soccer training. <br><br>With our tech-enabled studios and world-class coaches, our training program is ideal for kids 7 years and older looking to take their game to the next level. Whether it\'s individual or group training, our program guarantees player development by focusing on high-quality repetitions and game-like scenarios.<br></blockquote>`,
     "hours-saturday": "7:30 AM – 8:00 PM",
     "hours-wednesday": "10:00 AM – 12:00 PM",
     "hours-thursday": "10:00 AM – 12:00 PM",
     "hours-s-s": "7:30 AM – 8:00 PM",
     map: '<div id=""></div>',
     "hours-friday": "10:00 AM – 12:00 PM",
-    slug: centerName,
-    trainers: ["64492d7ee2522e1e892b5580"],
+    slug: center.centerName,
+    trainers: [],
     programs: [],
-    "center-features": [
-      "64492d7ee2522e78042b525e",
-      "64492d7ee2522e6bfb2b5264",
-      "64492d7ee2522e1cfc2b525f",
-      "64492d7ee2522e08fe2b5261",
-      "64492d7ee2522e80ef2b5262",
-    ],
+    "center-features": [],
     "featured-programs": "64492d7ee2522eb5852b54ef",
     location: "64492d7ee2522e0a132b5516",
     "card-image": {

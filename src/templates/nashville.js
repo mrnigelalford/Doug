@@ -23,7 +23,7 @@ const getCenterPrograms = (center) => [
       url: 'https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecaf99904fbb77bb14bc_632c9598f8eaf9b3b0d155a7_birthdays.jpeg',
     },
     centers: [center.id],
-    'phone-number-2': ('111-111-1111'),
+    'phone-number-2': (center.phone = '111-111-1111'),
     mytoca: false,
     "sub-programs": [],
     "states": [],
@@ -47,7 +47,7 @@ const getCenterPrograms = (center) => [
     'book-now-url':
       'https://clients.mindbodyonline.com/classic/ws?studioid=5720010&stype=-8&sTG=25&sView=day&sLoc=0',
     'cta-text': 'SIGN UP FOR CAMPS',
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": [],
@@ -70,7 +70,7 @@ const getCenterPrograms = (center) => [
       url: 'https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecaff0489550046961d0_632c8e58b9a9014fc285d3d5_venue.jpeg',
     },
     centers: [center.id],
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": []
@@ -91,7 +91,7 @@ const getCenterPrograms = (center) => [
       url: 'https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecb04877b432e93c01cb_632650b5f8acef2e0a64ea7a_210608_ha_toca_league_031_LowRes.jpeg',
     },
     slug: `${center.name.toLowerCase()}-2soccer-08adultleagues`,
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": []
@@ -108,7 +108,7 @@ const getCenterPrograms = (center) => [
     'rich-text': '',
     slug: `${center.name.toLowerCase()}-2soccer`,
     centers: [center.id],
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": []
@@ -129,7 +129,7 @@ const getCenterPrograms = (center) => [
       url: 'https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecafbbe8d957b0ec57f4_632c8a02e4a3bd333d345756_team-training.jpeg',
     },
     slug: `${center.name.toLowerCase()}-2soccer-05teamtraining`,
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": []
@@ -149,7 +149,7 @@ const getCenterPrograms = (center) => [
       fileId: '64492d7ee2522e265a2b5687',
       url: 'https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecb048d03f23d526b1df_632bc495bdb0244275a27518_strikers.jpeg',
     },
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": []
@@ -171,7 +171,7 @@ const getCenterPrograms = (center) => [
       fileId: '64492d7ee2522e94da2b5678',
       url: 'https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecaf2335189472cbfc77_6311e73ad595816c92a0b8b9_62f5affe498ebb63f4f00ef1_soccer-group-training.jpeg',
     },
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": []
@@ -212,7 +212,7 @@ const getCenterPrograms = (center) => [
       fileId: '64492d7ee2522e6c7f2b5677',
       url: 'https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecae987e9dfe8fb4a798_632bd5624529da25276d2d6c_fko.jpeg',
     },
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": []
@@ -233,7 +233,7 @@ const getCenterPrograms = (center) => [
       url: 'https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecae977a8e0c98194c57_632e6d9fa3d58043395dede3_adult-open.jpeg',
     },
     slug: `${center.name.toLowerCase()}-2soccer-10adultopenplay`,
-    'phone-number-2': `${('111-111-1111')}`,
+    'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
     "sub-programs": [],
     "states": []

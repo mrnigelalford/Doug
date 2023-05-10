@@ -55,9 +55,9 @@ const setItem = async (collectionId: string, fields: any) => {
  * @param address - Address of the center to create.
  * @returns Promise that resolves with the server response or rejects with an error.
  */
-const setCenter = async (centerName: string, address: string) => {
+const setCenter = async (center: Center) => {
   const collectionId = centerCollectionId;
-  const fields = getCenter(centerName, address);
+  const fields = getCenter(center);
   return setItem(collectionId, fields);
 };
 

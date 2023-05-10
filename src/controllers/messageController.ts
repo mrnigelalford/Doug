@@ -107,6 +107,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       // Call main function with necessary details
       await setNewCenter({
         address: task.custom_fields.find(f => f.name === 'Center Address').value,
+        phone: task.custom_fields.find(f => f.name === 'Center Phone').value,
         template: _template.type_config.options[Number(_template.value)].name,
         name: centerName,
         hubspotFormID: HSForm.guid
