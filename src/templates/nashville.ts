@@ -19,8 +19,8 @@ const getCenterPrograms = (center: Center) => [
     },
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": [''],
+    "sub-programs": [],
+    "states": [],
   },
   {
     _archived: false,
@@ -43,8 +43,8 @@ const getCenterPrograms = (center: Center) => [
     'cta-text': 'SIGN UP FOR CAMPS',
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": [''],
+    "sub-programs": [],
+    "states": [],
   },
   {
     _archived: false,
@@ -65,8 +65,8 @@ const getCenterPrograms = (center: Center) => [
     },
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
   {
     _archived: false,
@@ -86,8 +86,8 @@ const getCenterPrograms = (center: Center) => [
     slug: `${center.name.toLowerCase()}-2soccer-08adultleagues`,
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
   {
     _archived: false,
@@ -102,8 +102,8 @@ const getCenterPrograms = (center: Center) => [
     slug: `${center.name.toLowerCase()}-2soccer`,
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
   {
     _archived: false,
@@ -123,8 +123,8 @@ const getCenterPrograms = (center: Center) => [
     slug: `${center.name.toLowerCase()}-2soccer-05teamtraining`,
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
   {
     _archived: false,
@@ -143,8 +143,8 @@ const getCenterPrograms = (center: Center) => [
     },
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
   {
     _archived: false,
@@ -165,8 +165,8 @@ const getCenterPrograms = (center: Center) => [
     },
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
   {
     _archived: false,
@@ -186,8 +186,8 @@ const getCenterPrograms = (center: Center) => [
     },
     slug: `${center.name.toLowerCase()}-2soccer-02individualtraining`,
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
   {
     _archived: false,
@@ -206,8 +206,8 @@ const getCenterPrograms = (center: Center) => [
     },
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
   {
     _archived: false,
@@ -227,8 +227,8 @@ const getCenterPrograms = (center: Center) => [
     slug: `${center.name.toLowerCase()}-2soccer-10adultopenplay`,
     'phone-number-2': center.phone = '111-111-1111',
     mytoca: false,
-    "sub-programs": [''],
-    "states": ['']
+    "sub-programs": [],
+    "states": []
   },
 ];
 
