@@ -42,6 +42,13 @@ export interface Creator {
   profilePicture: string;
 }
 
+interface Option {
+  id: string;
+  name: string;
+  color?: string;
+  orderindex?: number;
+}
+
 export interface CustomField {
   id: string;
   name: string;
@@ -51,6 +58,7 @@ export interface CustomField {
   hide_from_guests: boolean;
   value: string;
   required: boolean;
+  options?: Option[];
 }
 
 export interface TypeConfig {}
