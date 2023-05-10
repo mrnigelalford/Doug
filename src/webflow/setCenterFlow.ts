@@ -1,10 +1,8 @@
 import { Center } from '../types/webflow';
-import { getDefaultPrograms } from './template_centerPrograms';
-
 import { getEvent } from './getEvent';
 import { getCarousel } from './getCarousel';
 import { getCenter } from './getCenter';
-import { getCenterPrograms } from '../templates/nashville';
+import getCenterPrograms from '../templates/nashville';
 
 
 require('dotenv').config();
