@@ -102,21 +102,18 @@ const setCenterCarousel = async (centerName: string) => {
  * @returns Promise that resolves with an array of server responses or rejects with an error.
  */
 const setCenterPrograms = async (centerName: string, template: string) => {
-  let programs = getCenterPrograms({
-    name: centerName,
-    id: centerProgramsID,
-  });
+  let programs;
 
-  // switch (template) {
-  //   case 'nashville':
-  //     programs = getCenterPrograms({
-  //       name: centerName,
-  //       id: centerProgramsID,
-  //     });
-  //     break;
-  //   default:
-  //     programs = getDefaultPrograms(centerName, centerProgramsID);
-  // }
+  switch (template) {
+    case 'nashville':
+      programs = getCenterPrograms({
+        name: centerName,
+        id: centerProgramsID,
+      });
+      break;
+    default:
+      programs = getDefaultPrograms(centerName, centerProgramsID);
+  }
 
   const promises = programs.map((program: any, i: number) => {
     return new Promise((resolve, reject) => {
