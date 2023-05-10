@@ -119,7 +119,7 @@ const getCenterPrograms = (center) => [
     popular: false,
     deal: false,
     'choose-program-switch': false,
-    name: `${center.name.toLowerCase} Soccer Team Training`,
+    name: `${center.name.toLowerCase()} Soccer Team Training`,
     'body-description': '',
     'external-display-name': 'Team Training',
     'rich-text':
@@ -183,7 +183,7 @@ const getCenterPrograms = (center) => [
     deal: false,
     'choose-program-switch': false,
     'sort-order': 7,
-    name: `${center.name.toLowerCase} Soccer Individual Training`,
+    name: `${center.name.toLowerCase()} Soccer Individual Training`,
     'body-description': '',
     'external-display-name': 'Individual Training',
     'rich-text':
