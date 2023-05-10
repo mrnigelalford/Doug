@@ -1,9 +1,10 @@
 import { Center } from '../types/webflow';
 import { getDefaultPrograms } from './template_centerPrograms';
-import getCenterPrograms from '../templates/nashville';
+
 import { getEvent } from './getEvent';
 import { getCarousel } from './getCarousel';
 import { getCenter } from './getCenter';
+import { getCenterPrograms } from '../templates/nashville';
 
 require('dotenv').config();
 
@@ -56,7 +57,6 @@ const setItem = async (collectionId: string, fields: any) => {
 const setCenter = async (centerName: string, address: string) => {
   const collectionId = centerCollectionId;
   const fields = getCenter(centerName, address);
-  console.info('setting center');
   return setItem(collectionId, fields);
 };
 
@@ -149,7 +149,7 @@ async function setNewCenter(center: Center): Promise<void> {
     );
 
     const centerID = centerResponse._id;
-    console.info('starting to set programs')
+    console.info('setting programs')
     await setCenterPrograms(center.name, center.template);
     console.info('done setting programs')
 

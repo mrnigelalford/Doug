@@ -103,13 +103,11 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       console.info('Hubspot form created: ', JSON.stringify(HSForm))
 
       const _template = task.custom_fields.find(f => f.name === 'Center Template');
-      console.info('template: ', _template.type_config.options[Number(_template.value)].name)
-      console.info('_template: ', (_template.value))
       
       // Call main function with necessary details
       await setNewCenter({
         address: task.custom_fields.find(f => f.name === 'Center Address').value,
-        // template: _template.options[Number(_template.value)].name,
+        template: _template.type_config.options[Number(_template.value)].name,
         name: centerName,
         hubspotFormID: HSForm.guid
       });
