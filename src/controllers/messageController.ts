@@ -101,7 +101,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       const HSForm = await setHubspotForm.json() as unknown as HSForm;
 
       console.info('Hubspot form created: ', JSON.stringify(HSForm))
-      console.info('Phone number: ', task.custom_fields.find(f => f.name === 'Center Phone'))
+      console.log('Phone number: ', JSON.stringify(task.custom_fields.find(f => f.name === 'Center Phone')))
 
       const _template = task.custom_fields.find(f => f.name === 'Center Template');
       

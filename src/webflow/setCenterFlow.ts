@@ -102,13 +102,10 @@ const setCenterCarousel = async (centerName: string) => {
  * @param  centerName - Name of the center associated with the programs.
  * @returns Promise that resolves with an array of server responses or rejects with an error.
  */
-const setCenterPrograms = async (centerName: string, template: string) => {
-  console.info('template: ', template);
+const setCenterPrograms = async (center: Center) => {
+  console.info('template: ', center.template);
 
-  let programs = getCenterPrograms({
-    name: centerName,
-    id: centerProgramsID,
-  });
+  let programs = getCenterPrograms(center);
 
   // switch (template) {
   //   case 'nashville':
@@ -152,7 +149,7 @@ async function setNewCenter(center: Center): Promise<void> {
     // update the states collection with the center id
     const centerID = centerResponse._id;
     console.info('setting programs')
-    await setCenterPrograms(center.name, center.template);
+    await setCenterPrograms(center);
     console.info('done setting programs')
 
     await setEvent(center.name, center.hubspotFormID, centerID);
