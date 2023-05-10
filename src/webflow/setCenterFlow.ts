@@ -148,7 +148,7 @@ async function setNewCenter(center: Center): Promise<void> {
     );
 
     const centerID = centerResponse._id;
-    await setCenterPrograms(center.name, centemplate);
+    await setCenterPrograms(center.name, center.template);
 
     await setEvent(center.name, center.hubspotFormID, centerID);
     await setCenterCarousel(center.name);
