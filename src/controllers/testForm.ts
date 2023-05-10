@@ -1,5 +1,5 @@
 export const testHSForm = (centerName: string) => ({
-  name: `Example Test ${centerName} Form`,
+  name: `${centerName} Form`,
   action: '',
   method: 'POST',
   cssClass: 'hs-form stacked',

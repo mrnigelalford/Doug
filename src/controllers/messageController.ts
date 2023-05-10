@@ -105,6 +105,8 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       console.log('custom fields: ', JSON.stringify(task.custom_fields))
 
       const _template = task.custom_fields.find(f => f.name === 'Center Template');
+      console.info('template: ', _template.options[Number(_template.value)].name)
+      console.info('_template: ', (_template.value))
       
       // Call main function with necessary details
       await setNewCenter({
