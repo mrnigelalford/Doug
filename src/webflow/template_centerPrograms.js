@@ -1,4 +1,4 @@
-const getCenterPrograms = (centerName) => [
+const getDefaultPrograms = (centerName, id) => [
   {
     _archived: false,
     _draft: true,
@@ -17,7 +17,7 @@ const getCenterPrograms = (centerName) => [
       url: "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/6345ecaff0489550046961d0_632c8e58b9a9014fc285d3d5_venue.jpeg",
       alt: null,
     },
-    centers: ["64492d7ee2522edf462b5519"],
+    centers: [id],
     states: ["64492d7ee2522e0a132b5516"],
     "phone-number-2": "000-000-0000",
     mytoca: false,
@@ -41,7 +41,7 @@ const getCenterPrograms = (centerName) => [
       alt: null,
     },
     states: ["64492d7ee2522e0a132b5516"],
-    centers: ["64492d7ee2522edf462b5519"],
+    centers: [id],
     "phone-number-2": "000-000-0000",
     mytoca: false,
   },
@@ -84,7 +84,7 @@ const getCenterPrograms = (centerName) => [
       "64492d7ee2522ed8f82b5574",
     ],
     slug: `${centerName}-2soccer`,
-    centers: ["64492d7ee2522edf462b5519"],
+    centers: [id],
     states: ["64492d7ee2522e0a132b5516"],
     "phone-number-2": "000-000-0000",
     mytoca: false,
@@ -105,7 +105,7 @@ const getCenterPrograms = (centerName) => [
       url: "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/632bd256bd8a0dd32cc5cbaa_210608_ha_toca_training_018_LowRes.jpg",
       alt: null,
     },
-    centers: [],
+    centers: [id],
     states: ["64492d7ee2522e0a132b5516"],
     "phone-number-2": "000-000-0000",
     mytoca: false,
@@ -239,4 +239,4 @@ const getCenterPrograms = (centerName) => [
     mytoca: false,
   },
 ];
-exports.getCenterPrograms = getCenterPrograms;
+exports.getDefaultPrograms = getDefaultPrograms;

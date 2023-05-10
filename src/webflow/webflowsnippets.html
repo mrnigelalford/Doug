@@ -1,0 +1,511 @@
+<!-- retrieves information about the current web page's location and stores it in the user's local storage. -->
+
+<script>
+  // checks whether window.location.pathname and window.tocaLocationsBySlug are defined and not null
+  if (window.location.pathname && window.tocaLocationsBySlug) {
+    // splits the pathname into an array of strings, each string representing a part of the pathname
+    var pathParts = window.location.pathname.substring(1).split("/");
+    // checks whether the pathname has more than one part
+    if (pathParts.length > 1) {
+      // stores the first part of the pathname in a variable
+      var firstPart = pathParts[0];
+      // hecks whether the first part of the pathname is 'centers'
+      if ("centers" === firstPart) {
+        // store the webflow slug in a variable
+        var locationSlug = pathParts[1];
+        // set variable containing the location name or null
+        var locationName = window.tocaLocationsBySlug[locationSlug].name;
+        // set variable containing the location URL or null
+        var locationUrl =
+          "https://" + window.location.hostname + "/centers/" + locationSlug;
+
+        // set location slug, name, and URL in local storage
+        localStorage.setItem("selectedLocationSlug", locationSlug);
+        localStorage.setItem("selectedLocation", locationName);
+        localStorage.setItem("selectedLocationURL", locationUrl);
+      } else if ("center-programs" === firstPart) {
+        // checks whether the first part of the pathname is 'center-programs'
+
+        // splits the second part of the pathname into an array of strings, each string representing a part of the pathname
+        var fullSlugParts = pathParts[1].split("-");
+
+        // stores the first part of the pathname in a variable
+        var locationSlug = fullSlugParts.shift();
+
+        // set variable containing the location name or null
+        var locationName = window.tocaLocationsBySlug[locationSlug].name;
+
+        // set variable containing the location URL or null
+        var locationUrl =
+          "https://" + window.location.hostname + "/centers/" + locationSlug;
+
+        // create string containing all the program slugs using dashes
+        var programSlug = fullSlugParts.join("-");
+
+        // set location slug, name, URL, and program slug in local storage
+        localStorage.setItem("selectedLocationSlug", locationSlug);
+        localStorage.setItem("selectedLocation", locationName);
+        localStorage.setItem("selectedLocationURL", locationUrl);
+        localStorage.setItem("selectedProgramSlug", programSlug);
+      }
+    }
+  }
+</script>
+
+<!-- improved code -->
+
+<script>
+  // Check that the necessary variables exist
+  if (window.location.pathname && window.tocaLocationsBySlug) {
+    // Get the path components of the current URL
+    var pathParts = window.location.pathname.substring(1).split("/");
+
+    // Check that there are enough path components
+    if (pathParts.length > 1) {
+      // Check whether the first path component is "centers"
+      if (pathParts[0] === "centers") {
+        // Get the location information
+        var locationSlug = pathParts[1];
+        var location = window.tocaLocationsBySlug[locationSlug];
+
+        // Store the location information in local storage
+        if (location) {
+          localStorage.setItem("selectedLocationSlug", locationSlug);
+          localStorage.setItem("selectedLocation", location.name);
+          localStorage.setItem(
+            "selectedLocationURL",
+            `https://${window.location.hostname}/centers/${locationSlug}`
+          );
+        }
+
+        // Check whether the first path component is "center-programs"
+      } else if (pathParts[0] === "center-programs") {
+        // Get the location and program information
+        var fullSlugParts = pathParts[1].split("-");
+        var locationSlug = fullSlugParts.shift();
+        var location = window.tocaLocationsBySlug[locationSlug];
+        var programSlug = fullSlugParts.join("-");
+
+        // Store the location and program information in local storage
+        if (location) {
+          localStorage.setItem("selectedLocationSlug", locationSlug);
+          localStorage.setItem("selectedLocation", location.name);
+          localStorage.setItem(
+            "selectedLocationURL",
+            `https://${window.location.hostname}/centers/${locationSlug}`
+          );
+          localStorage.setItem("selectedProgramSlug", programSlug);
+        }
+      }
+    }
+  }
+</script>
+
+<!-- centers head tag -->
+<style>
+  .nav-menu {
+    margin-right: auto;
+  }
+  .right-nav {
+    display: block;
+  }
+  /*.right-nav { display: block; }*/
+  .center-inner-toggle.w--open .card-arrow-icon.black {
+    transform: rotate(90deg);
+  }
+  @media screen and (max-width: 479px) {
+    .right-nav {
+      display: block !important;
+    }
+  }
+</style>
+
+<!-- Google review CSS -->
+<style>
+  .Main__Container-sc-1n4ud0o-0 > a,
+  .HeaderContainer__Inner-sc-pny2b8-0,
+  .ReviewPostedOn__TextStyle-sc-1s508wm-3 {
+    display: none !important;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .Grid__GridContainer-zyt552-0 {
+      grid-template-columns: repeat(1, 1fr) !important;
+    }
+    .bWjvzU:not(:first-child) {
+      margin-top: 0px !important;
+    }
+  }
+  .center-dropdown .center-sub-list {
+    display: none;
+  }
+  @media only screen and (min-width: 992px) {
+    .center-dropdown:hover .center-sub-list {
+      display: block;
+    }
+  }
+  .center-dropdown,
+  .location-card-other.small {
+    margin-bottom: 16px;
+  }
+  .center-dropdown .location-card-other.small {
+    margin-bottom: 0px;
+  }
+</style>
+
+<!-- centers body tag -->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+  integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+></script>
+
+<script
+  async
+  src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsnest@1/cmsnest.js"
+></script>
+
+<script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"></script>
+<script>
+  (function () {
+    var fsSlider = new FsLibrary(".slider-data-feed");
+    fsSlider.slider({
+      sliderComponent: ".event-slider",
+      resetIx: true,
+    });
+  })();
+
+  // hide other center bloch when other center is 0
+  $(document).ready(function () {
+    var othercenter = $(".locations-wrapper .w-dyn-item").length;
+    if (othercenter < 1) {
+      $(".other-centers").hide();
+    }
+  });
+</script>
+
+<script>
+  // Center Page ===============================================================================
+  /*$(document).ready(function () {
+  setTimeout(() => {
+    let timeOut;
+    let timeOut2;
+    let loadElementsTimeout;
+    function checkIframeLoaded() {
+      let iFrames = $(".hs-form-iframe");
+      iFrames = $(iFrames[0]);
+      if (iFrames.length > 0) {
+        iFrames.each(function () {
+          // Get a handle to the iframe element
+          var iframeDoc =
+            $(this)[0].contentDocument || $(this)[0].contentWindow.document;
+          // Check if loading is complete
+          if (iframeDoc.readyState == "complete") {
+            // $(this)[0].contentWindow.onload = function () {
+            //   alert("I am loaded");
+            // };
+            clearInterval(timeOut);
+            // The loading is complete, call the function we want executed once the iframe is loaded
+            setTimeout(() => {
+              bindOnChange(iFrames.contents());
+            }, 1000);
+            return;
+          }
+        });
+      }
+    }
+    // If we are here, it is not loaded. Set things up so we check   the status again in 100 milliseconds
+    timeOut = setInterval(checkIframeLoaded, 1000);
+
+    function setLocalData(e, el, isRightMiddleClick) {
+      e.preventDefault();
+      const locationText = $("#location-name").text();
+      const program = el.find("h3").text();
+      localStorage.setItem("selectedLocation", locationText);
+      localStorage.setItem("selectedProgram", program);
+      const href = el.find(".image-holder").attr("href");
+      if (!isRightMiddleClick) window.location = href;
+    }
+
+    // Location Page - On click Program
+    const programList = $(".programs-grid .w-dyn-item");
+    if (programList.length > 0) {
+      programList.on("click", function (e) {
+        setLocalData(e, $(this));
+      });
+      programList.mousedown(function (e) {
+        if (e.which === 2 || e.which === 3) setLocalData(e, $(this), true);
+      });
+    }
+
+    function bindOnChange(iFrameDoc) {
+      console.log("bindOnChange");
+      let centerWisePrograms = [];
+      const ProgramByCenterList = $(".location-item");
+      if (ProgramByCenterList.length > 0) {
+        ProgramByCenterList.each(function () {
+          const center = $(this).find(".location-text").text();
+          let programs = [];
+          const programEls = $(this).find(".program-text");
+          if (programEls.length > 0) {
+            programEls.each(function () {
+              programs.push($(this).text());
+            });
+          }
+          centerWisePrograms.push({ center, programs });
+        });
+      }
+      centerWisePrograms = centerWisePrograms.filter((x) => x.center);
+
+      let centerSelect;
+      let programSelect;
+      let programOptions;
+
+      function loadElements() {
+        console.log("loadElements");
+        centerSelect = iFrameDoc.find("select[name='choose_location']");
+        programSelect = iFrameDoc.find("select[name='program']");
+        if (programSelect && programSelect.length > 0) {
+          programOptions = programSelect.find("option");
+        }
+        if (
+          programOptions &&
+          programOptions.length > 0 &&
+          programSelect &&
+          programSelect.length > 0 &&
+          centerSelect &&
+          centerSelect.length > 0
+        ) {
+          clearInterval(loadElementsTimeout);
+          bindCenterChange();
+        }
+      }
+
+      loadElementsTimeout = setInterval(loadElements, 200);
+
+      function bindCenterChange() {
+        console.log("bindCenterChange");
+        centerSelect.on("change", function (e, isResetProgram = true) {
+          let programs = [];
+          const center = $(this).find(":selected").text();
+          const programBycenter = centerWisePrograms.find(
+            (x) => x.center === center
+          );
+
+          if (programBycenter) programs = programBycenter.programs;
+          programs.push("Please Select");
+          if (programOptions.length > 0) {
+            let filteredList = programOptions.filter(function () {
+              return programs.includes($(this).text());
+            });
+            iFrameDoc.find("select[name='program']").html(filteredList);
+          }
+
+          if (isResetProgram) {
+            programSelect.val("");
+            programSelect.trigger("change");
+          }
+        });
+        timeOut2 = setInterval(filterProgramListOnLoad, 500);
+      }
+
+      function filterProgramListOnLoad() {
+        const programLocationData = $($(".subprogram-list")[0]).find(
+          ".program-text"
+        );
+        if (programLocationData.length > 0) {
+          clearInterval(timeOut2);
+          const location = $("#location-name").text();
+          centerSelect.val(location);
+          centerSelect.trigger("change", false);
+        }
+      }
+    }
+  }, 2000);
+});*/
+</script>
+
+<script>
+  $("#choose-program").show();
+  var mlist = [];
+  var slist = [];
+  $(".cp-row-list .title").each(function () {
+    if (
+      $(this)
+        .attr("href")
+        .includes($(location).attr("pathname").split("/").pop())
+    ) {
+      if ($(this)[0].pathname.split("/").pop().match(/\-/g).length == 1) {
+        mlist.push(this);
+      } else {
+        slist.push(this);
+      }
+    }
+  });
+  mlist.sort((a, b) =>
+    a.pathname < b.pathname ? -1 : a.pathname > b.pathname ? 1 : 0
+  );
+  slist.sort((a, b) =>
+    a.pathname < b.pathname ? -1 : a.pathname > b.pathname ? 1 : 0
+  );
+  $(mlist).each(function (mindex, mele) {
+    var smlist = $(
+      '<div class="center-sub-list bump"><div class="subprogram-list"></div></div>'
+    );
+    var flag = false;
+    $(slist).each(function (index, ele) {
+      if ($(ele)[0].pathname.includes($(mele)[0].pathname)) {
+        flag = true;
+        $(smlist).append(
+          '<div class="subprogram"><a class="program-link" href="' +
+            $(ele)[0].pathname +
+            '">' +
+            $(ele).text() +
+            "</a></div>"
+        );
+      }
+    });
+    if (flag) {
+      // $('#cp-container').append('<div class="location-card-other small location-dropdown"><div class="location-name"><h4>' + $(this).text() + '</h4> ' + $(smlist).html() + ' </div><div class="card-arrow-icon black md-show"><img src="https://uploads-ssl.webflow.com/60c7be61132e3a9edf0a3315/60c7be61132e3ae04a0a338d_arrowhead-right-icon-dark001.svg" loading="lazy" alt="" class="vacation-card-arrow"></div><div class="location-card-background"><div class="overlay"></div></div></div>')
+      $("#cp-container").append(
+        '<div class="center-dropdown"><div class="center-inner-toggle"></div><div class="location-card-other small"><div class="location-name"><h4>' +
+          $(this).text() +
+          '</h4></div><div class="card-arrow-icon black md-show"><img src="https://uploads-ssl.webflow.com/60c7be61132e3a9edf0a3315/60c7be61132e3ae04a0a338d_arrowhead-right-icon-dark001.svg"loading="lazy"alt="arrow"class="vacation-card-arrow"/></div><div class="location-card-background"><div class="overlay"></div></div></div><div class="center-sub-list">' +
+          $(smlist).html() +
+          "</div></div></div>"
+      );
+    } else {
+      $("#cp-container").append(
+        '<a href="' +
+          $(mele)[0].pathname +
+          '" class="location-card-other small"><div class="location-name"><h4>' +
+          $(this).text() +
+          '</h4> </div><div class="card-arrow-icon black d-none"><img src="https://uploads-ssl.webflow.com/60c7be61132e3a9edf0a3315/60c7be61132e3ae04a0a338d_arrowhead-right-icon-dark001.svg" loading="lazy" alt="" class="vacation-card-arrow"></div><div class="location-card-background"><div class="overlay"></div></div></div></a>'
+      );
+    }
+  });
+
+  /*$( document ).ready(function() {
+  if($(window).width() <= 991){
+    $(".center-dropdown" ).click(function() {
+      $('.center-sub-list').hide()
+      $(this).find( ".center-sub-list" ).toggle(); 
+  });
+});*/
+
+  //if($(window).width() <= 991){
+  $(".center-dropdown").click(function () {
+    $(this).find(".center-sub-list").toggle();
+  });
+  //}
+</script>
+
+
+<!-- website toplevel footer -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<script>
+  //<!-- START: Mobile Autoplay Video -->
+  var mobilevideo = document.getElementsByTagName("video")[0];
+  if(mobilevideo){
+    mobilevideo.setAttribute("playsinline", "");
+    mobilevideo.setAttribute("muted", "");
+  }
+//<!-- END: Mobile Autoplay Video -->
+</script>
+
+<script>
+// Navbar Sticky
+var topbarcount = $('.top-navigation-content').length
+if (topbarcount > 0) {
+    $('.navbar, .navbar-dark').css( 'top', '40px' )
+}  
+  
+if($(window).width() <= 991){
+  var topbarcountmobile = $('.top-navigation-content').length
+  if (topbarcountmobile > 0) {
+      $('.navbar').css( 'top', '66px' )
+  }
+}
+if($(window).width() <= 479){
+  var topbarcountmobile = $('.top-navigation-content').length
+  if (topbarcountmobile > 0) {
+      $('.navbar').css( 'top', '74px' )
+  }
+}
+  
+// Set selected location name and link url. Also update button label when on /centers page.
+// Note: Setting location and program local storage data based on slug value is done via embedded 
+//       scripts on relevant pages (/centers/{slug} and /center-programs/{slug}).
+$(function() {
+  const locationName = localStorage.getItem("selectedLocation");
+  const locationUrl = localStorage.getItem("selectedLocationURL");
+  if (locationName) {
+    var text = document.getElementById('location-link');
+    var backlink = document.getElementById('center-link');
+    if(text){
+      text.innerHTML = locationName;
+      text.href = locationUrl;
+    }
+    if (backlink) backlink.href = locationUrl;
+  }
+
+  if (window.location.href.includes("/centers")) {
+    var edit = document.getElementById('edit-location-link');
+    if(edit){
+      edit.innerHTML = "Remove"
+      edit.onclick = function (){
+        localStorage.removeItem("selectedLocation");
+        localStorage.removeItem("selectedLocationURL");
+        localStorage.removeItem("selectedLocationSlug");
+      };
+    }
+  }
+});
+  
+// Enable/Disable location specific buttons
+$(function(){
+  const selectedLocation = localStorage.getItem("selectedLocationSlug");
+  if (selectedLocation) {
+    $('.cta-button').removeClass('active');
+    $('.nav-cta-button').removeClass('active');
+    $('.choose-center').removeClass('active')
+    $('.navtop-center-block').addClass('active');
+  } else {
+    $('.cta-button').addClass('active');
+    $('.nav-cta-button').addClass('active');
+    $('.choose-center').addClass('active')
+    $('.navtop-center-block').removeClass('active');
+  }
+});
+
+</script>
+
+<!-- Messenger Chat Plugin Code -->
+    <!-- <div id="fb-root"></div> -->
+
+    <!-- Your Chat Plugin code -->
+    <!-- <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "547532331925222");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>-->
+
+    <!-- Your SDK code -->
+    <!--<script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v12.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>-->

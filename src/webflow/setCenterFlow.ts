@@ -1,5 +1,6 @@
 import { Center } from '../types/webflow';
-import { getCenterPrograms } from './template_centerPrograms';
+import { getDefaultPrograms } from './template_centerPrograms';
+import getCenterPrograms from '../templates/nashville';
 import { getEvent } from './getEvent';
 import { getCarousel } from './getCarousel';
 import { getCenter } from './getCenter';
@@ -12,6 +13,7 @@ require('dotenv').config();
 // 3. If the script fails, check the console output for error messages.
 
 const centerCollectionId = '64492d7ee2522e3a782b51be';
+const centerProgramsID = '64492d7ee2522e4b272b51c9';
 
 /**
  * Sends a POST request to the Webflow API to create an item in a collection.
@@ -99,13 +101,24 @@ const setCenterCarousel = async (centerName: string) => {
  * @param  centerName - Name of the center associated with the programs.
  * @returns Promise that resolves with an array of server responses or rejects with an error.
  */
-const setCenterPrograms = async (centerName: string) => {
-  const collectionId = '64492d7ee2522e4b272b51c9';
-  const programs = getCenterPrograms(centerName); // TODO: get programs from Webflow API
+const setCenterPrograms = async (centerName: string, template: string) => {
+  let programs;
+
+  switch (template) {
+    case 'nashville':
+      programs = getCenterPrograms({
+        name: centerName,
+        id: centerProgramsID,
+      });
+      break;
+    default:
+      programs = getDefaultPrograms(centerName, centerProgramsID);
+  }
+
   const promises = programs.map((program: any, i: number) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        setItem(collectionId, program)
+        setItem(centerProgramsID, program)
           .then((response: { data: any }) => resolve(response.data))
           .catch((error: { response: { data: any } }) =>
             reject(error.response.data),
@@ -129,10 +142,14 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 async function setNewCenter(center: Center): Promise<void> {
   try {
     const centerResponse = await setCenter(center.name, center.address);
-    console.info('center set successful with id: ', JSON.stringify(centerResponse._id));
+    console.info(
+      'center set successful with id: ',
+      JSON.stringify(centerResponse._id),
+    );
 
     const centerID = centerResponse._id;
-    await setCenterPrograms(center.name);
+    await setCenterPrograms(center.name, centemplate);
+
     await setEvent(center.name, center.hubspotFormID, centerID);
     await setCenterCarousel(center.name);
 
