@@ -6,7 +6,7 @@
  */
 const getCenter = (centerName, address) => ({
     _archived: false,
-    _draft: true,
+    _draft: false,
     "facebook-url": `https://www.facebook.com/TOCASoccer${centerName}`,
     "show-events": false,
     closing: false,
