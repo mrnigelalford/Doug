@@ -61,7 +61,9 @@ export interface CustomField {
   options?: Option[];
 }
 
-export interface TypeConfig {}
+export interface TypeConfig {
+  options: Option[];
+}
 
 export interface Value {
   id: number;
