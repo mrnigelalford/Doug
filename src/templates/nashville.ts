@@ -1,9 +1,4 @@
-export type Center = {
-  name: string;
-  state?: string;
-  phone?: string;
-  id: string
-};
+import { Center } from "../types/webflow";
 
 const getCenterPrograms = (center: Center) => [
   {
