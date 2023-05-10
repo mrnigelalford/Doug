@@ -5,7 +5,7 @@
 //   id: string
 // };
 
-const getCenterPrograms = center => [
+const getCenterPrograms = center => ([
   {
     _archived: false,
     _draft: false,
@@ -216,6 +216,6 @@ const getCenterPrograms = center => [
     'phone-number-2': `${(center.phone = '111-111-1111')}`,
     mytoca: false,
   },
-];
+]);
 
 exports.getCenterPrograms = getCenterPrograms;
