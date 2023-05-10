@@ -10,7 +10,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522ed9222b5479",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60de45a7deb16b658cf3a450_210608_ha_toca_training_011.png",
-                "alt": null
             },
             "continent": [
                 "64492d7ee2522e374e2b5222"
@@ -31,7 +30,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522ed9222b5479",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60de45a7deb16b658cf3a450_210608_ha_toca_training_011.png",
-                "alt": null
             },
             "featured": [
                 "64492d7ee2522eaf642b54e3"
@@ -51,7 +49,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522ed9222b5479",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60de45a7deb16b658cf3a450_210608_ha_toca_training_011.png",
-                "alt": null
             },
             "continent": [
                 "64492d7ee2522e374e2b5222"
@@ -72,7 +69,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "61826f2d39814149c2c7e896",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60f0767e2f2d42b5b368506f_Screen%20Shot%202021-07-15%20at%2011.53.57%20AM.png",
-                "alt": null
             },
             "featured": [
                 "64492d7ee2522e79952b53cf",
@@ -95,7 +91,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522e9a502b53dd",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60ca404e96feff61ca21b3c1_462ACF10-2A4B-4AFF-AC60-6A075FE9C9E2.jpg",
-                "alt": null
             },
             "featured": [
                 "64492d7ee2522e40302b54e5",
@@ -117,7 +112,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522e57b22b54b5",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60de46f8eb98985f9248b376_210608_ha_toca_league_016.png",
-                "alt": null
             },
             "continent": [
                 "64492d7ee2522e374e2b5222"
@@ -144,7 +138,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522ed9222b5479",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60de45a7deb16b658cf3a450_210608_ha_toca_training_011.png",
-                "alt": null
             },
             "number-of-vacations": 1,
             "featured": [
@@ -167,7 +160,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522ec4562b54c7",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60de4688d82d5bd55322d5b5_210608_ha_toca_league_039.png",
-                "alt": null
             },
             "featured": [
                 "64492d7ee2522e2f802b54ec"
@@ -188,7 +180,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522e57b22b54b5",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60de46f8eb98985f9248b376_210608_ha_toca_league_016.png",
-                "alt": null
             },
             "number-of-vacations": 1,
             "featured": [
@@ -209,7 +200,6 @@ const getStateID = (name: string) => {
             "card-image": {
                 "fileId": "64492d7ee2522e7b592b53f0",
                 "url": "https://uploads-ssl.webflow.com/60c7be61132e3ad0b40a333d/60de477e7b0a4a73525196c5_50587080_2003795509712409_586920264684535808_n.jpeg",
-                "alt": null
             },
             "number-of-vacations": 4,
             "featured": [
