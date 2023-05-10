@@ -102,7 +102,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
 
       console.info('Hubspot form created: ', JSON.stringify(HSForm))
 
-      console.info('custom fields: ', JSON.stringify(task.custom_fields))
+      console.log('custom fields: ', JSON.stringify(task.custom_fields))
       
       // Call main function with necessary details
       await setNewCenter({

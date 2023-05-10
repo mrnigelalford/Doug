@@ -22,15 +22,11 @@ export const createHubspotForm = async (centerName: string): Promise<any> => {
   // update the template form
   const templateForm = await response.json();
 
-  console.log('hubspot form pre mod: ', JSON.stringify(templateForm))
-
   delete templateForm.guid;
   delete templateForm.portalId;
   templateForm.name = `Website Inquiry - ${centerName} - FKO`;
 
   const testForm = JSON.stringify(testHSForm(centerName));
-  
-  console.log('hubspot form post mod: ', testForm)
 
   // create a new form
   return fetch('https://api.hubapi.com/forms/v2/forms', {
