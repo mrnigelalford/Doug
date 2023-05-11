@@ -4,7 +4,7 @@
   "description": "Internal chat bot for Toca, a soccer company. Doug can help users with various tasks related to the company's operations and communicate with them via Google Chat.",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "npx tsc src/index.ts",
+    "dev": "npx tsc src/localDev.ts && node src/localDev",
     "build": "npx tsc",
     "local-function": "npx functions-framework --target=doug --signature-type=http"
   },

@@ -15,6 +15,7 @@ require('dotenv').config();
 
 const centerCollectionId = Collections.filter(c => c.name === 'Centers')[0]._id;
 const centerProgramsID = Collections.filter(c => c.name === 'Center Programs')[0]._id;
+const centerEventsID = Collections.filter(c => c.name === 'Events')[0]._id;
 
 /**
  * Sends a POST request to the Webflow API to create an item in a collection.
@@ -36,15 +37,15 @@ const setItem = async (collectionId: string, fields: any) => {
       headers,
       body: JSON.stringify({ fields }),
     });
-    if (response) {
-      console.log('webflow response: ', JSON.stringify(response));
+    console.log('webflow set response: ', JSON.stringify(await response.json()))
 
-      return response.json();
-    } else {
+    if (response && response.status === 200) return response;
+    else {
       throw new Error(
         `Error setting item: ${response.status} ${response.statusText}`,
       );
     }
+
   } catch (error) {
     console.error('Error setting item: ', error.message);
   }
@@ -68,15 +69,14 @@ const setCenter = async (center: Center) => {
  * @param centerID - ID of the center associated with the event, or null if not available.
  * @returns Promise that resolves with the server response or rejects with an error.
  */
-const setEvent = async (
+export const setEvent = async (
   center: Center,
   centerID: string
 ) => {
+  console.log('starting')
   try {
     const fields = getEvent(center, centerID);
-    console.log('fields: ', JSON.stringify(fields));
-
-    return setItem(centerCollectionId, fields);
+    return setItem(centerEventsID, fields);
   } catch (event) {
     console.error('error setting event: ', JSON.stringify(event.response.data));
   }
@@ -118,7 +118,7 @@ const setCenterPrograms = async (center: Center) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         setItem(centerProgramsID, program)
-          .then((response: { data: any }) => resolve(response.data))
+          .then((response: any) => resolve(response.data))
           .catch((error: { response: { data: any } }) =>
             reject(error.response.data),
           );
@@ -140,7 +140,7 @@ Main function that executes the setCenter, setCenterPrograms, setEvent, and setC
 */
 async function setNewCenter(center: Center): Promise<void> {
   try {
-    const centerResponse = await setCenter(center);
+    const centerResponse: any = await setCenter(center);
     console.info(
       'center set successful with id: ',
       JSON.stringify(centerResponse._id),
