@@ -150,11 +150,11 @@ async function setNewCenter(center: Center): Promise<void> {
 
     // update the states collection with the center id
     const centerID = centerResponse._id;
-    console.info('setting programs')
+    console.info('centerResponse: ', JSON.stringify(centerResponse))
     await setCenterPrograms(center);
     console.info('done setting programs')
 
-    await setEvent(center, centerID);
+    await setEvent(center, centerID || '64492d7ee2522e16672b53ca');
     await setCenterCarousel(center.name);
 
     console.info(`all done! ${center.name} is ready to go!`);
