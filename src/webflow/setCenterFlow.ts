@@ -2,7 +2,7 @@ import { Center } from '../types/webflow';
 import getEvent from './getEvent';
 import { getCarousel } from './getCarousel';
 import getCenter from './getCenter';
-import getCenterPrograms from '../templates/nashville';
+import getCenterPrograms, { capitalizeFirstLetter } from '../templates/nashville';
 import Collections from '../templates/allCollections';
 
 
@@ -157,7 +157,7 @@ async function setNewCenter(center: Center): Promise<void> {
     await setEvent(center, centerID || '64492d7ee2522e16672b53ca');
     await setCenterCarousel(center.name);
 
-    console.info(`all done! ${center.name} is ready to go!`);
+    console.info(`all done! ${capitalizeFirstLetter(center.name)} is ready to go!`);
   } catch (error) {
     errorHandler(error);
   }

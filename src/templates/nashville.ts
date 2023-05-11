@@ -1,6 +1,6 @@
 import { Center } from "../types/webflow";
 
-const capitalizeFirstLetter = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+export const capitalizeFirstLetter = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 const getCenterPrograms = (center: Center) => [
   {
