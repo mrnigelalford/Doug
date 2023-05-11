@@ -4,7 +4,7 @@ Returns an object with the fields needed to create a Webflow carousel item for a
 @param {string} centerName - The name of the center.
 @returns {Object} An object containing the fields needed to create a Webflow carousel item.
 */
-const getCarousel = (centerName) => ({
+export const getCarousel = (centerName: string) => ({
   _archived: false,
   _draft: false,
   "cta-link-3-2": `https://www.tocafootball.com/center-programs/${centerName}-2soccer-04grouptraining`,
@@ -42,4 +42,3 @@ const getCarousel = (centerName) => ({
     alt: null,
   },
 });
-exports.getCarousel = getCarousel;

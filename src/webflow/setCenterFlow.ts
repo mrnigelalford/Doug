@@ -73,9 +73,11 @@ export const setEvent = async (
   center: Center,
   centerID: string
 ) => {
-  console.log('starting')
   try {
+    console.log('starting setEvent')
     const fields = getEvent(center, centerID);
+    console.log('fields: ', JSON.stringify(fields));
+
     return setItem(centerEventsID, fields);
   } catch (event) {
     console.error('error setting event: ', JSON.stringify(event.response.data));
