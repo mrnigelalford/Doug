@@ -118,7 +118,7 @@ const handleMessage = async (message: TagEvent): Promise<void> => {
       await setPostTag(task.id, 'automation-complete');
 
       // Add completion comment to task
-      comment = `🚀 Center visible at: https://www.tocafootball.com/centers/${centerName.toLowerCase()}`;
+      comment = `🚀 Center visible at: https://toca-website.webflow.io/centers/${centerName.toLowerCase()}`;
       await commentOnTask(task.id, process.env.CLICKUP_TOCA_TEAM_ID, comment);
     } else {
       console.info(`💤 Incorrect tag has been seen. We are not ready to create a new center.`);
