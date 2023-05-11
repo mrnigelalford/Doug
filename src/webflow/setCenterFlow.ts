@@ -37,6 +37,8 @@ const setItem = async (collectionId: string, fields: any) => {
       body: JSON.stringify({ fields }),
     });
     if (response) {
+      console.log('webflow response: ', JSON.stringify(response));
+
       return response.json();
     } else {
       throw new Error(
@@ -72,6 +74,8 @@ const setEvent = async (
 ) => {
   try {
     const fields = getEvent(center, centerID);
+    console.log('fields: ', JSON.stringify(fields));
+
     return setItem(centerCollectionId, fields);
   } catch (event) {
     console.error('error setting event: ', JSON.stringify(event.response.data));
