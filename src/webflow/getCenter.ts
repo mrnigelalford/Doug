@@ -1,31 +1,33 @@
+import { Center } from "../types/webflow";
+
 /**
  * Returns an object containing the fields for creating a new center item.
  * @param {string} center.centerName - Name of the center.
  * @param {string} center.address - Address of the center.
  * @returns {Object} Object containing the fields for creating a new center item.
  */
-const getCenter = (center) => ({
+const getCenter = (center: Center) => ({
     _archived: false,
     _draft: false,
-    "facebook-url": `https://www.facebook.com/TOCASoccer${center.centerName}`,
+    "facebook-url": `https://www.facebook.com/TOCASoccer${center.name}`,
     "show-events": false,
     closing: false,
     "get-directions-link": "https://goo.gl/maps/buoisPZWnUodJXnf9",
-    email: `${center.centerName}@tocafootball.com`,
+    email: `${center.name}@tocafootball.com`,
     "program-count": 8,
     "phone-number": center.phone,
     "hours-m-f": "10:00 AM – 12:00 PM",
     "short-description": center.address,
-    name: center.centerName,
+    name: center.name,
     "hours-tuesday": "10:00 AM – 12:00 PM",
-    "body-description": `<blockquote id="">Located in a northern suburb, TOCA ${center.centerName} is an indoor soccer center offering the next generation of soccer training. <br><br>With our tech-enabled studios and world-class coaches, our training program is ideal for kids 7 years and older looking to take their game to the next level. Whether it\'s individual or group training, our program guarantees player development by focusing on high-quality repetitions and game-like scenarios.<br></blockquote>`,
+    "body-description": `<blockquote id="">Located in a northern suburb, TOCA ${center.name} is an indoor soccer center offering the next generation of soccer training. <br><br>With our tech-enabled studios and world-class coaches, our training program is ideal for kids 7 years and older looking to take their game to the next level. Whether it\'s individual or group training, our program guarantees player development by focusing on high-quality repetitions and game-like scenarios.<br></blockquote>`,
     "hours-saturday": "7:30 AM – 8:00 PM",
     "hours-wednesday": "10:00 AM – 12:00 PM",
     "hours-thursday": "10:00 AM – 12:00 PM",
     "hours-s-s": "7:30 AM – 8:00 PM",
     map: '<div id=""></div>',
     "hours-friday": "10:00 AM – 12:00 PM",
-    slug: center.centerName,
+    slug: center.name,
     trainers: [],
     programs: [],
     "center-features": [],
@@ -38,5 +40,5 @@ const getCenter = (center) => ({
     },
   });
   
-  exports.getCenter = getCenter;
+ export default getCenter;
   

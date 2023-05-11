@@ -1,8 +1,9 @@
 import { Center } from '../types/webflow';
 import getEvent from './getEvent';
 import { getCarousel } from './getCarousel';
-import { getCenter } from './getCenter';
+import getCenter from './getCenter';
 import getCenterPrograms from '../templates/nashville';
+import Collections from '../templates/allCollections';
 
 
 require('dotenv').config();
@@ -12,8 +13,8 @@ require('dotenv').config();
 // 2. Run the script with the command `node setCenterFlow.js`.
 // 3. If the script fails, check the console output for error messages.
 
-const centerCollectionId = '64492d7ee2522e3a782b51be';
-const centerProgramsID = '64492d7ee2522e4b272b51c9';
+const centerCollectionId = Collections.filter(c => c.name === 'Centers')[0]._id;
+const centerProgramsID = Collections.filter(c => c.name === 'Center Programs')[0]._id;
 
 /**
  * Sends a POST request to the Webflow API to create an item in a collection.
@@ -54,9 +55,8 @@ const setItem = async (collectionId: string, fields: any) => {
  * @returns Promise that resolves with the server response or rejects with an error.
  */
 const setCenter = async (center: Center) => {
-  const collectionId = centerCollectionId;
   const fields = getCenter(center);
-  return setItem(collectionId, fields);
+  return setItem(centerCollectionId, fields);
 };
 
 /**
@@ -68,12 +68,11 @@ const setCenter = async (center: Center) => {
  */
 const setEvent = async (
   center: Center,
-  centerID
+  centerID: string
 ) => {
   try {
-    const collectionId = '64492d7ee2522e284a2b51cd';
     const fields = getEvent(center, centerID);
-    return setItem(collectionId, fields);
+    return setItem(centerCollectionId, fields);
   } catch (event) {
     console.error('error setting event: ', JSON.stringify(event.response.data));
   }
