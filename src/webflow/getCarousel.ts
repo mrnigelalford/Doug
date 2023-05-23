@@ -10,11 +10,11 @@ export const getCarousel = (centerName: string) => ({
   _archived: false,
   _draft: true,
   "cta-link-3-2":
-    `https://www.tocafootball.com/center-programs/${center.name.toLowerCase()}-2soccer-06kidsclasses`,
+    `https://www.tocafootball.com/center-programs/${centerName.toLowerCase()}-2soccer-06kidsclasses`,
   "cta-link-1":
-    `https://www.tocafootball.com/center-programs/${center.name.toLowerCase()}-2soccer-01freekickoff`,
+    `https://www.tocafootball.com/center-programs/${centerName.toLowerCase()}-2soccer-01freekickoff`,
   "cta-link-2":
-    `https://www.tocafootball.com/center-programs/${center.name.toLowerCase()}-2soccer-02individualtraining`,
+    `https://www.tocafootball.com/center-programs/${centerName.toLowerCase()}-2soccer-02individualtraining`,
   "sub-text-3": "Introduce Your Child to Soccer",
   "main-text-1": "Free Kickoff",
   "main-text-2": "Individual Training",
