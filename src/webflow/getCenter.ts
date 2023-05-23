@@ -9,7 +9,7 @@ import { Center } from "../types/webflow";
  */
 const getCenter = (center: Center) => ({
     _archived: false,
-    _draft: false,
+    _draft: true,
     "facebook-url": `https://www.facebook.com/TOCASoccer${center.name.toLowerCase()}`,
     "show-events": false,
     closing: false,
